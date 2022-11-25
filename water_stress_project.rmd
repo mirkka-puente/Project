@@ -1,12 +1,16 @@
 ---
-title: "Water_stress_project"
-author: "Group_4"
+title: "Water Stress project"
+author: "Group 4"
 date: "2022-11-25"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      results = 'asis',
+                      dev = "HTML",
+                      dev.args = list(type = "cairo"),
+                      dpi = 100)
 ```
 
 ## Data Project
@@ -14,14 +18,15 @@ knitr::opts_chunk$set(echo = FALSE)
 ### Group 4
 
 *Members:* 
+
 - Jhosely Carbajal
 - Joaquin Castanier
 - Lorenzo Chiapparoli
 - Mirkka Puente
 
-Document name should be: DP-LastName.Rmd
 
 **1. Data**
+
 Data Frame taken from water stress trials carried out for the class of Adaptation to Climate Change during the months of September through November of 2022. The data has 27 columns and 1260 observations.
 
 - Wild species: *Sonchus oleraceus*
@@ -37,10 +42,10 @@ Data Frame taken from water stress trials carried out for the class of Adaptatio
 
 **3. Define the main hypotheses**
 
-H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
-H0.2: There will be no significant differences on the growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species. 
-H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
-H1.2: There will be significant differences in growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species.
+a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
+b. H0.2: There will be no significant differences on the growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species. 
+c. H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
+d. H1.2: There will be significant differences in growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species.
 
 **4. Intended analyses**
 
