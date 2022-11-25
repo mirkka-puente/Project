@@ -1,0 +1,51 @@
+---
+title: "Water_stress_project"
+author: "Group_4"
+date: "2022-11-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Data Project
+
+### Group 4
+
+*Members:* 
+- Jhosely Carbajal
+- Joaquin Castanier
+- Lorenzo Chiapparoli
+- Mirkka Puente
+
+Document name should be: DP-LastName.Rmd
+
+**1. Data**
+Data Frame taken from water stress trials carried out for the class of Adaptation to Climate Change during the months of September through November of 2022. The data has 27 columns and 1260 observations.
+
+**2. Objectives**
+
+*General* 
+
+Design, develop, analyze and expose a project related to data acquisition, analyses and scientific methods in life sciences.
+
+*Specific*
+
+1. Determine if there is an effect of drought tolerance in ten different plant species (cultivated and wild). 
+
+2. Compare the responses to drought conditions between cultivated crops and wild weeds. 
+
+**3. Define the main hypotheses**
+H0.1: There will be NO significant effects of the water stress treatments on the growth, development and photosynthetic activity of plants. 
+H0.2: There will be no difference on growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species. 
+H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity of plants. 
+H1.2: There will be significant difference on growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species.
+
+4. Analyses needed or intended.
+Two way ANOVA (Categorical variables: crops, dependent variables: plant parameters) to answer H0.1
+One way ANOVA to answer H0.2
+Normality test - Shapiro 
+TukeyHSD test - PostHoc test (to differentiate the groups from ANOVA)
+Non-parametric test - Kruskal Wallis
+
