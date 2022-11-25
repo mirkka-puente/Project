@@ -24,6 +24,11 @@ Document name should be: DP-LastName.Rmd
 **1. Data**
 Data Frame taken from water stress trials carried out for the class of Adaptation to Climate Change during the months of September through November of 2022. The data has 27 columns and 1260 observations.
 
+- Wild species: *Sonchus oleraceus*
+- Cultivar species: *Beta vulgaris*
+- Data taken: soil humidity, electrical conductivity, plant height, number of leaves,	leaf length, leaf width, leaf area, chlorophyll content, number of flowers, weight of fresh leaves, weight of dry leaves, weight of fresh shoot,	weight of dry shoot, root length, weight of fresh root, weight of dry roots. 
+
+
 **2. Objectives**
 
 *General* 
@@ -32,7 +37,7 @@ Design, develop, analyze and expose a project related to data acquisition, analy
 
 *Specific*
 
-1. Determine if there is an effect of drought tolerance in ten different plant species (cultivated and wild). 
+1. Analyse the effects from drought tolerance in ten different plant species (cultivated and wild). 
 
 2. Compare the responses to drought conditions between cultivated crops and wild weeds. 
 
