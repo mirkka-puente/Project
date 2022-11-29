@@ -53,5 +53,5 @@ d. H1.2: There will be significant differences in growth, development and photos
 - One way ANOVA to answer H0.2
 - Shapiro–Wilk test for normality of residuals 
 - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
-- Kruskal Wallis as Non-parametric test 
+- Kruskal Wallis as Non-parametric test ++++++
 
