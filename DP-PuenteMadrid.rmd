@@ -1,0 +1,57 @@
+---
+title: "Water Stress project"
+author: "Group 4"
+date: "2022-11-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      results = 'asis',
+                      dev = "HTML",
+                      dev.args = list(type = "cairo"),
+                      dpi = 100)
+```
+
+## Data Project
+
+### Group 4
+
+*Members:* 
+
+- Jhosely Carbajal
+- Joaquin Castanier
+- Lorenzo Chiapparoli
+- Mirkka Puente
+
+
+**1. Data**
+
+Data Frame taken from water stress trials carried out for the class of Adaptation to Climate Change during the months of September through November of 2022. The data has 27 columns and 1260 observations.
+
+- Wild species: *Sonchus oleraceus*
+- Cultivar species: *Beta vulgaris*
+- Data taken: soil humidity, electrical conductivity, plant height, number of leaves,	leaf length, leaf width, leaf area, chlorophyll content, number of flowers, weight of fresh leaves, weight of dry leaves, weight of fresh shoot,	weight of dry shoot, root length, weight of fresh root, weight of dry roots. 
+- Treatments levels: control, intermediate and water stress 
+
+
+**2. Objectives**
+
+1. Evaluate the effects of the water stress treatments on the growth, development and photosynthetic activity in ten different plant species.
+2. Compare the responses to drought conditions between cultivated crops and wild weeds, and determine if there are significant differences.
+
+**3. Define the main hypotheses**
+
+a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
+b. H0.2: There will be no significant differences on the growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species. 
+c. H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
+d. H1.2: There will be significant differences in growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species.
+
+**4. Intended analyses**
+
+- Two way ANOVA (Categorical variables: crop species, Dependent variables: plant parameters) to answer hypothesis H0.1
+- One way ANOVA to answer H0.2
+- Shapiro–Wilk test for normality of residuals 
+- TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
+- Kruskal Wallis as Non-parametric test 
+
