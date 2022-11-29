@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE,
 
 *Members:* 
 
-- Jhosely Carbajal 1
+- Jhosely Carbajal 
 - Joaquin Castanier
 - Lorenzo Chiapparoli
 - Mirkka Puente
@@ -55,5 +55,5 @@ d. H1.2: There will be significant differences in growth, development and photos
 - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
 - Kruskal Wallis as Non-parametric test 
 
-
+jahsgsgfd
 
