@@ -37,14 +37,13 @@ d. H1.2: There will be significant differences in growth, development and photos
 
 #### a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species.
 
- 1. Investigate the effects of water stress on plant height, leaves' width and length, and leaf number
+ 1. Investigate the effects of the 3 water stress treatments on plant height, leaves' width and length, and leaf number
  
   a. Modify our data table so it includes the parameters described before, and the name of the plant species we are comparing. For the preliminary results, we will work on two species of plants from the group 4. 
   
-  b. Carr y out the actual statistical tests:
+  b. Carry out the actual statistical tests:
 
-    - Two way ANOVA (Categorical variables: crop species, Dependent variables: plant parameters) to answer hypothesis H0.1
-    - One way ANOVA to answer H0.2
+    - One way ANOVA (Categorical variables: treatments, Dependent variables: plant parameters). Done one by one.
     - Shapiro–Wilk test for normality of residuals 
     - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
     - Kruskal Wallis as Non-parametric test
