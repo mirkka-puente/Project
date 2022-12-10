@@ -54,11 +54,5 @@ d. H1.2: There will be significant differences in growth, development and photos
 - Shapiro–Wilk test for normality of residuals 
 - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
 - Kruskal Wallis as Non-parametric test 
-<<<<<<< HEAD
-huhoòouhòhoò
-=======
-llalalalal
 
-jahsgsgfd
->>>>>>> ebe5343616d1487a98f4327145f12a366f12d239
 
