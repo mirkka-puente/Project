@@ -6,9 +6,9 @@
 ### Oauth token for your Google account. 
 
 w <- # adress of the spreadsheet
-  "https://docs.google.com/spreadsheets/d/1WM6hDgwCFxbLpT37HLzU-iYZAEGBdHP6CpU8BDwWmZc/edit#gid=0"
+  "https://docs.google.com/spreadsheets/d/1WM6hDgwCFxbLpT37HLzU-iYZAEGBdHP6CpU8BDwWmZc/"
 p <- # path to the data
-  'water_stress.xlsx' 
+  'data/wstress.xlsx' 
 
 ### Create data folder if needed
 if (!dir.exists('data')) dir.create('data')
@@ -19,7 +19,7 @@ if (!dir.exists('data')) dir.create('data')
 # where you have to enter your Google credentials
 # and accept permissions. 
 library(googledrive)
-drive_download(file = as_id(w), path = 'water_stress.xlsx', 
+drive_download(file = as_id(w), path = 'data/wstress.xlsx', 
                overwrite = TRUE) 
 drive_deauth()
 

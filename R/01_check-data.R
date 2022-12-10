@@ -51,3 +51,4 @@ max(as.numeric(ws0$Soil_humidity), na.rm = TRUE)
 min(as.numeric(ws0$Soil_humidity), na.rm = TRUE)
 
 ### The same check for the rest of numeric data
+
