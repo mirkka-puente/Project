@@ -1,5 +1,11 @@
 #### Install packages --------------
 install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
+install.packages(c("tidyverse"), dependencies = TRUE)
+
+#### Packages ------------
+library(dplyr)
+library(tidyr)
+library(tidyverse)
 
 #### List files and source each ---------
 list.files("/Users/User/Desktop/UPV_DataAcquisition/Project/R/", full.names = TRUE) %>% map(source)
