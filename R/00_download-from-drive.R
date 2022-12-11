@@ -6,7 +6,7 @@
 ### Oauth token for your Google account. 
 
 w <- # adress of the spreadsheet
-  "https://docs.google.com/spreadsheets/d/1WM6hDgwCFxbLpT37HLzU-iYZAEGBdHP6CpU8BDwWmZc/"
+  "https://docs.google.com/spreadsheets/d/1WM6hDgwCFxbLpT37HLzU-iYZAEGBdHP6CpU8BDwWmZc/edit#gid=0"
 p <- # path to the data
   'data/wstress.xlsx' 
 
