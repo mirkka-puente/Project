@@ -7,16 +7,39 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 
-#### List files and source each ---------
-list.files("/Users/User/Desktop/UPV_DataAcquisition/Project/R/", full.names = TRUE) %>% map(source)
+#### Calling the other scripts to call data ---
+source("/Users/User/Desktop/UPV_DataAcquisition/Project/R/00_download-from-drive.R")
+source("/Users/User/Desktop/UPV_DataAcquisition/Project/R/01_check-data.R")
 
-### Calling the other scripts to call data
-#source("/Users/User/Desktop/UPV_DataAcquisition/Project/R/00_download-from-drive.R")
-#source("/Users/User/Desktop/UPV_DataAcquisition/Project/R/01_check-data.R")
+#### Creating Data Frame with required variables----
+data0 <- select(filter(ws0, Group = 'G4'), 
+                Species:Chlorophyll_content,
+                        -Too_dry, -Soil_humidity, -Electrical_conductivity)
+  
 
-###Creating Data Frame with required variables
+#### Displaying data ----
+boxplot(data0$Plant_height ~ data0$Treatment,
+     main="Box plots for plant height",
+     xlab="Species name",
+     ylab="Plant height",
+     col= "white",
+     border="black")
 
-data0 <- data.frame(species = ws0$Species)
+#### ANOVA -------
+a1_pheight <- aov(Plant_height ~ Treatment, data=data0)
+summary(a1_pheight)
+plot(a1_pheight, 2)
+#### Shaphiro test for normality -------
+s_pheight <- shapiro.test(a_pheight$residuals)
+s_pheight
 
-# Name columns
-ws0
+#### Log Data 
+data0 <- data0 %>% mutate(Log_pheight = log(Plant_height))
+
+#### ANOVA -------
+a2_pheight <- aov(Log_pheight ~ Treatment, data=data0)
+summary(a2_pheight)
+plot(a2_pheight, 2)
+#### Shaphiro test for normality -------
+s2_pheight <- shapiro.test(a2_pheight$residuals)
+s2_pheight
