@@ -1,6 +1,6 @@
 #### Install packages --------------
-install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
-install.packages(c("tidyverse"), dependencies = TRUE)
+#install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
+#install.packages(c("tidyverse"), dependencies = TRUE)
 
 #### Packages ------------
 library(dplyr)
