@@ -1,30 +1,46 @@
 #### Install packages --------------
 #install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
 #install.packages(c("tidyverse"), dependencies = TRUE)
+#install.packages("ggplot2", dependencies = TRUE)
 
 #### Packages ------------
 library(dplyr)
 library(tidyr)
 library(tidyverse)
+library(ggplot2)
 
 #### Calling the other scripts to call data ---
-source("R/00_download-from-drive.R")
-source("R/01_check-data.R")
+#source("R/00_download-from-drive.R")
+#source("R/01_check-data.R")
 
 #### Creating Data Frame with required variables----
-data0 <- select(filter(ws0, Species == 'Beta vulgaris'), 
-                Date:Chlorophyll_content,
-                        -Too_dry, -Soil_humidity, -Electrical_conductivity)
-  
+data0 <- select(filter(ws0, Week == "W6"), 
+                -Too_dry, -Soil_humidity, -Electrical_conductivity)
+
+#after the coma comes the columns
+data1 <- ws0[ws0$Week == "W6", ]
+
+ggplot(ws0, aes(x = Week, y = Plant_height, group = PlantId, 
+                 col = Treatment)) +
+         geom_line()+
+        geom_point()+
+        facet_grid(~Species)
+ 
+ggplot(ws0, aes(x = Treatment, y = Plant_height, col = Treatment))+
+  geom_boxplot()
+
+ggplot(data1, aes(x=Species, y=Plant_height, fill=Treatment)) + 
+  geom_boxplot()
+
 
 #### Displaying data ----
 
 boxplot(data0$Plant_height ~ data0$Treatment,
-     main="Box plots for plant height",
-     xlab="-----",
-     ylab="Plant height",
-     col= "white",
-     border="black")
+        main="Box plots for plant height",
+        xlab="-----",
+        ylab="Plant height",
+        col= "white",
+        border="black")
 
 #### ANOVA -------
 a1_pheight <- aov(Plant_height ~ Treatment+Date, data=data0)
