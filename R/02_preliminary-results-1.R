@@ -8,8 +8,8 @@ library(tidyr)
 library(tidyverse)
 
 #### Calling the other scripts to call data ---
-source("/Users/User/Desktop/UPV_DataAcquisition/Project/R/00_download-from-drive.R")
-source("/Users/User/Desktop/UPV_DataAcquisition/Project/R/01_check-data.R")
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
 
 #### Creating Data Frame with required variables----
 data0 <- select(filter(ws0, Group = 'G4'), 
@@ -26,11 +26,11 @@ boxplot(data0$Plant_height ~ data0$Treatment,
      border="black")
 
 #### ANOVA -------
-a1_pheight <- aov(Plant_height ~ Treatment, data=data0)
+a1_pheight <- aov(Plant_height ~ Treatment+Species+Date, data=ws0)
 summary(a1_pheight)
 plot(a1_pheight, 2)
 #### Shaphiro test for normality -------
-s_pheight <- shapiro.test(a_pheight$residuals)
+s_pheight <- shapiro.test(a1_pheight$residuals)
 s_pheight
 
 #### Log Data 

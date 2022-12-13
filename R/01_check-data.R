@@ -16,15 +16,14 @@ ws.observ <- read_xlsx(path = p, sheet = "Observations")
 ### Factors
 # names(ws0)
 var.factors <- c("Group", "Week", "Date", "Species", 
-                 "Treatment", "Too_dry", "Life") 
+                 "Treatment", "Too_dry") 
 for (i in var.factors) ws0[[i]] <- as.factor(ws0[[i]])
 
 ### Numeric
 var.numeric <- c(
   "Soil_humidity", "Electrical_conductivity", "Plant_height", 
   "Leaf_number", "Leaf_length", "Leaf_width", "Leaf_area",
-  "Chlorophyll_content", "Flowers_number", 
-  "Aerial_fresh_weight", "Aerial_dry_weight",
+  "Chlorophyll_content","Aerial_fresh_weight", "Aerial_dry_weight",
   "Root_length", "Roots_fresh_weight", "Roots_dry_weight")
 for (i in var.numeric) ws0[[i]] <- as.numeric(ws0[[i]])
 
@@ -38,7 +37,6 @@ levels(as.factor(ws0$Species))
 levels(as.factor(ws0$Use))
 levels(as.factor(ws0$Treatment))
 levels(as.factor(ws0$Too_dry))
-levels(as.factor(ws0$Life))
 
 ### Repeated plant id codes
 ws0$PlantId[which(duplicated(ws0$PlantId))]
