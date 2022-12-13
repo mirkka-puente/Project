@@ -12,21 +12,22 @@ source("R/00_download-from-drive.R")
 source("R/01_check-data.R")
 
 #### Creating Data Frame with required variables----
-data0 <- select(filter(ws0, Group = 'G4'), 
-                Species:Chlorophyll_content,
+data0 <- select(filter(ws0, Species == 'Beta vulgaris'), 
+                Date:Chlorophyll_content,
                         -Too_dry, -Soil_humidity, -Electrical_conductivity)
   
 
 #### Displaying data ----
+
 boxplot(data0$Plant_height ~ data0$Treatment,
      main="Box plots for plant height",
-     xlab="Species name",
+     xlab="-----",
      ylab="Plant height",
      col= "white",
      border="black")
 
 #### ANOVA -------
-a1_pheight <- aov(Plant_height ~ Treatment+Species+Date, data=ws0)
+a1_pheight <- aov(Plant_height ~ Treatment+Date, data=data0)
 summary(a1_pheight)
 plot(a1_pheight, 2)
 #### Shaphiro test for normality -------
