@@ -20,16 +20,18 @@ data0 <- select(filter(ws0, Week == "W6"),
 #after the coma comes the columns
 data1 <- ws0[ws0$Week == "W6", ]
 
-ggplot(ws0, aes(x = Week, y = Plant_height, group = PlantId, 
+
+ggplot(ws0, aes(x = Week, y = Roots_fresh_weight, group = PlantId, 
                  col = Treatment)) +
          geom_line()+
         geom_point()+
         facet_grid(~Species)
  
-ggplot(ws0, aes(x = Treatment, y = Plant_height, col = Treatment))+
-  geom_boxplot()
+ggplot(ws0, aes(x = Treatment, y = Aerial_fresh_weight, col = Treatment))+
+  geom_boxplot()+
+  facet_grid()
 
-ggplot(data1, aes(x=Species, y=Plant_height, fill=Treatment)) + 
+ggplot(ws0, aes(x=Species, y=Root_length, fill=Treatment)) + 
   geom_boxplot()
 
 
