@@ -23,31 +23,73 @@ knitr::opts_chunk$set(echo = TRUE)
 
 **Objectives**
 
-1. Evaluate the effects of the water stress treatments on the growth, development and photosynthetic activity in ten different plant species.
+1. Evaluate the effects of the water stress treatments on the growth, development and photosynthetic activity in nine different plant species.
 2. Compare the responses to drought conditions between cultivated crops and wild weeds, and determine if there are significant differences.
 
 **Hypotheses**
 
-a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
+a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the nine tested plant species. 
 b. H0.2: There will be no significant differences on the growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species. 
-c. H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species. 
+c. H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the nine tested plant species. 
 d. H1.2: There will be significant differences in growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species.
 
 **Intended analyses**
 
 #### a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species.
 
- 1. Investigate the effects of the 3 water stress treatments on plant height, leaves' width and length, and leaf number
+ 1. Investigate the effects of the 3 water stress treatments 
  
-  a. Modify our data table so it includes the parameters described before, and the name of the plant species we are comparing. For the preliminary results, we will work on two species of plants from the group 4. 
+ Plant Parameters to be used:
+ 
+ - Leaf number 
+ - Chlorophyll content (W6)
+ - Root length
+ - Aerial weight (fresh and dry)
+ - Root weight (fresh and dry)
+ - Water content
+ 
+ Categorical parameters:
+ - Species
+ - Date
+ - Week 
+ - Use
+ - Treatment
+ - Use
+ 
+  a. Modify our data table so it includes the parameters described before.
   
   b. Carry out the actual statistical tests:
 
-    - One way ANOVA (Categorical variables: treatments, Dependent variables: plant parameters). Done one by one.
+H1.0:
+
+    - One way ANOVA 
+    Categorical variables: treatments
+    Dependent variables: plant parameters
+    Calculate one parameter at a time 
+    
+    parameters to control:
+    - Date
+    - Species
+    
     - Shapiro–Wilk test for normality of residuals 
     - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
     - Kruskal Wallis as Non-parametric test
 
+H2.0:
+
+    - Two way ANOVA 
+    Categorical variables: treatment and use
+    Dependent variables: plant parameters
+    Calculate one parameter at a time 
+    
+    parameters to control:
+    - Date
+    - Species
+    
+    - Shapiro–Wilk test for normality of residuals 
+    - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
+    - Kruskal Wallis as Non-parametric test    
+    
 6. Results. Figures and tables with captions and description of what do they mean.
 
 7. Discussion. From your objectives.

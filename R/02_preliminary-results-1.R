@@ -21,17 +21,17 @@ data0 <- select(filter(ws0, Week == "W6"),
 data1 <- ws0[ws0$Week == "W6", ]
 
 
-ggplot(ws0, aes(x = Week, y = Roots_fresh_weight, group = PlantId, 
+ggplot(ws0, aes(x = Week, y = Chlorophyll_content, group = PlantId, 
                  col = Treatment)) +
          geom_line()+
         geom_point()+
         facet_grid(~Species)
  
-ggplot(ws0, aes(x = Treatment, y = Aerial_fresh_weight, col = Treatment))+
+ggplot(ws0, aes(x = Treatment, y = Leaf_number, col = Treatment))+
   geom_boxplot()+
   facet_grid()
 
-ggplot(ws0, aes(x=Species, y=Root_length, fill=Treatment)) + 
+ggplot(data1, aes(x=Species, y=Chlorophyll_content, fill=Treatment)) + 
   geom_boxplot()
 
 
