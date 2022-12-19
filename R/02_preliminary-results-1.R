@@ -29,43 +29,53 @@ data1 <- mutate(data1,
        Root_water_content = 
         ((Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight) * 100)
 
+#### Plant parameters to measure 
+
+parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
+                "Leaf_number", "Chlorophyll_content",
+                'Root_length', 'Aerial_fresh_weight', 
+                'Aerial_dry_weight', "Aerial_water_content",
+                "Roots_fresh_weight", "Roots_dry_weight",
+                "Root_water_content")
+
+data2 <- select(data1, all_of(parameters))
+
 ####################### Function to not get division by zero ###################
 check_zero_div <- function(n) {
    if (n != 0){
      n
    }else{"NA"}
 }
+
+# 1. Should we get ride of the NA?
+# 2. Replace the data
+# 3. Should we used just water content from both aerial + root
 ###############################################################################
 
 
-# GGPLOTS
-ggplot(ws0, aes(x = Week, y = Chlorophyll_content, group = PlantId, 
-                 col = Treatment)) +
-         geom_line()+
-        geom_point()+
-        facet_grid(~Species)
- 
-ggplot(ws0, aes(x = Treatment, y = Leaf_number, col = Treatment))+
-  geom_boxplot()+
-  facet_grid()
 
-ggplot(data1, aes(x=Species, y=Chlorophyll_content, fill=Treatment)) + 
-  geom_boxplot()
+#### GGPLOTS ----------
 
-
-#### Displaying data ----
-
-boxplot(data0$Plant_height ~ data0$Treatment,
-        main="Box plots for plant height",
-        xlab="-----",
-        ylab="Plant height",
-        col= "white",
-        border="black")
+for (c in data2[7:14]){
+  ggplot(data1, aes(x = Week, y = c, group = PlantId, col = Treatment)) +
+    geom_smooth()+
+    geom_point()+
+    facet_wrap(~Species)
+}
 
 #### ANOVA -------
-a1_pheight <- aov(Plant_height ~ Treatment+Date, data=data0)
-summary(a1_pheight)
-plot(a1_pheight, 2)
+a_leaf_num <- c()
+for(c in data2[7:14]){
+  a_leaf_num <- c(a_leaf_num, aov(c ~ Treatment+Date, data=data2))
+}
+
+for (a in a_leaf_num) {
+  summary(a)
+}
+
+
+plot(a_leaf_num, 2)
+
 #### Shaphiro test for normality -------
 s_pheight <- shapiro.test(a1_pheight$residuals)
 s_pheight

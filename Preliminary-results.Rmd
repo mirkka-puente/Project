@@ -54,7 +54,7 @@ d. H1.2: There will be significant differences in growth, development and photos
  - Week 
  - Use
  - Treatment
- - Use
+ -Plant ID
  
   a. Modify our data table so it includes the parameters described before.
   
