@@ -13,14 +13,32 @@ library(ggplot2)
 #source("R/00_download-from-drive.R")
 #source("R/01_check-data.R")
 
-#### Creating Data Frame with required variables----
-data0 <- select(filter(ws0, Week == "W6"), 
-                -Too_dry, -Soil_humidity, -Electrical_conductivity)
+#### Creating duplicates of the original data ------
 
-#after the coma comes the columns
-data1 <- ws0[ws0$Week == "W6", ]
+#### 1. Adding a column for aerial water content 
+data1 <- ws0  
+data1 <- mutate(data1, 
+       Aerial_water_content = 
+         ((Aerial_fresh_weight - Aerial_dry_weight)/Aerial_fresh_weight) * 100) 
+
+data1 <- mutate(data1, 
+       Root_water_content = 
+         ((Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight) * 100) 
+
+data1 <- mutate(data1, 
+       Root_water_content = 
+        ((Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight) * 100)
+
+####################### Function to not get division by zero ###################
+check_zero_div <- function(n) {
+   if (n != 0){
+     n
+   }else{"NA"}
+}
+###############################################################################
 
 
+# GGPLOTS
 ggplot(ws0, aes(x = Week, y = Chlorophyll_content, group = PlantId, 
                  col = Treatment)) +
          geom_line()+
