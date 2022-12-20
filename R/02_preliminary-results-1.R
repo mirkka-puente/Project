@@ -14,19 +14,11 @@ library(agricolae)
 source("R/00_download-from-drive.R")
 source("R/01_check-data.R")
 
-#### Creating duplicates of the original data ------
+#### Creating duplicate of the original data ------
 
-#### 1. Adding a column for aerial water content 
-data1 <- ws0  
+data1 <- ws0 
 
-check_real <- function(dt) {
-  for (i in dt){
-    if (!is.nan(i)){
-      i
-    }else{NA}
-  }
-}
-
+#### Adding columns to calculate water content 
 
 data1 <- mutate(data1, 
             Aerial_water_content = 
@@ -35,7 +27,6 @@ data1 <- mutate(data1,
 data1 <- mutate(data1, 
        Root_water_content = 
          (Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight)
-
 
 
 #### Plant parameters to measure 
@@ -47,38 +38,48 @@ parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
                 "Roots_fresh_weight", "Roots_dry_weight",
                 "Root_water_content")
 
+
+#### variables to be used
 numerical_var <- c("Leaf_number", "Chlorophyll_content",
                    'Root_length', 'Aerial_fresh_weight', 
                    'Aerial_dry_weight', "Aerial_water_content",
                    "Roots_fresh_weight", "Roots_dry_weight",
                    "Root_water_content")
 
+#### Week we want to focus on
 
-table <- as.data.frame(matrix(nrow = 9, ncol = 9))
-names(table) <- numerical_var
-table$Species <- levels(data1$Species)
+w <- "W6"
 
-for (i in 1:9){
+data2 <- select(filter(data1, Week == w), all_of(parameters)) 
+
+
+#### Creating a data frame for  final results
+
+col_nam <- c("Species", "Variables", levels(data1$Treatment))
+num_col <- length(col_nam)
+num_row <- length(levels(data1$Species)) * length(numerical_var)
+final_table <- as.data.frame(matrix(nrow = num_row, ncol = num_col))
+names(final_table) <- col_nam
+
+sp <- levels(data2$Species)[1]
+nv <- numerical_var[1]
+i <- 1
+
+for(sp in levels(data2$Species)){
   for(nv in numerical_var){
-    k <- 1
-    #tf <- data1$Species == c
-    #num <- filter(data1, Species == c) %>% select(data1, one_of(nv)) 
-    #num2 <- num[[1]]
-    table[k, i] <- aov(nv ~ Treatment+Date+Species, data=data1)
-    k<- k+1
+    
+    data3 <- data2[data2$Species == sp, ]
+    
+    linear_model <- lm(data3[[nv]] ~ data3$Treatment)
+    hsd <- HSD.test(linear_model, "Treatment")
+    letter <- hsd$groups$groups[order(rownames(hsd$groups))]
+    final_table$Species[i] <- sp
+    final_table$Variables[i] <- nv
+    final_table[i, levels(data1$Treatment)] <- letter
+    i <- i + 1
   }
 }
 
-
-data2 <- select(data1, all_of(parameters))
-
-####################### Function to not get division by zero ###################
-
-
-# 1. Should we get ride of the NA?
-# 2. Replace the data
-# 3. Should we used just water content from both aerial + root
-###############################################################################
 
 
 
