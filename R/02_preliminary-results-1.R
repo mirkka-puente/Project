@@ -8,26 +8,50 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 library(ggplot2)
+library(agricolae)
 
 #### Calling the other scripts to call data ---
-#source("R/00_download-from-drive.R")
-#source("R/01_check-data.R")
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
 
 #### Creating duplicates of the original data ------
 
 #### 1. Adding a column for aerial water content 
 data1 <- ws0  
+
+check_real <- function(dt) {
+  for (i in dt){
+    if (!is.nan(i)){
+      i
+    }else{NA}
+  }
+}
+
+
 data1 <- mutate(data1, 
-       Aerial_water_content = 
-         ((Aerial_fresh_weight - Aerial_dry_weight)/Aerial_fresh_weight) * 100) 
+            Aerial_water_content = 
+              (Aerial_fresh_weight - Aerial_dry_weight)/Aerial_fresh_weight)
 
 data1 <- mutate(data1, 
        Root_water_content = 
-         ((Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight) * 100) 
+         (Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight)
 
-data1 <- mutate(data1, 
-       Root_water_content = 
-        ((Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight) * 100)
+
+
+data1 <- select(data1, one_of("Aerial_water_content", "Root_water_content"))
+
+
+
+#data1 <- filter(data1, Species == "Beta vulgaris") %>% group_by(Treatment)
+
+
+
+datac24 <- data1[[23]]
+
+datac25 <- data1[[25]]
+
+check_real(datac24)
+check_real(datac25)
 
 #### Plant parameters to measure 
 
@@ -41,11 +65,7 @@ parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
 data2 <- select(data1, all_of(parameters))
 
 ####################### Function to not get division by zero ###################
-check_zero_div <- function(n) {
-   if (n != 0){
-     n
-   }else{"NA"}
-}
+
 
 # 1. Should we get ride of the NA?
 # 2. Replace the data
@@ -66,19 +86,28 @@ for (c in data2[7:14]){
 #### ANOVA -------
 a_leaf_num <- c()
 for(c in data2[7:14]){
-  a_leaf_num <- c(a_leaf_num, aov(c ~ Treatment+Date, data=data2))
+  a_leaf_num <- c(a_leaf_num, aov(c ~ Treatment+Date+Species, data=data2))
 }
 
 for (a in a_leaf_num) {
   summary(a)
 }
 
-
+a_leaf_num <- aov(Leaf_number ~ Treatment+Week, data=data2)
 plot(a_leaf_num, 2)
 
+
+agricol <- agricolae::HSD.test(a_leaf_num, 'Treatment')
+plot(agricol)
+
+comparison <- with(data2, agricolae::kruskal(Leaf_number,
+                                          Treatment, group=TRUE, 
+                                          main="Treatment"))
+comparison
+
 #### Shaphiro test for normality -------
-s_pheight <- shapiro.test(a1_pheight$residuals)
-s_pheight
+s <- shapiro.test(a_leaf_num$residuals)
+s
 
 #### Log Data 
 data0 <- data0 %>% mutate(Log_pheight = log(Plant_height))
