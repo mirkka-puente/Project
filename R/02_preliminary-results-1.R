@@ -38,21 +38,6 @@ data1 <- mutate(data1,
 
 
 
-data1 <- select(data1, one_of("Aerial_water_content", "Root_water_content"))
-
-
-
-#data1 <- filter(data1, Species == "Beta vulgaris") %>% group_by(Treatment)
-
-
-
-datac24 <- data1[[23]]
-
-datac25 <- data1[[25]]
-
-check_real(datac24)
-check_real(datac25)
-
 #### Plant parameters to measure 
 
 parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
@@ -61,6 +46,29 @@ parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
                 'Aerial_dry_weight', "Aerial_water_content",
                 "Roots_fresh_weight", "Roots_dry_weight",
                 "Root_water_content")
+
+numerical_var <- c("Leaf_number", "Chlorophyll_content",
+                   'Root_length', 'Aerial_fresh_weight', 
+                   'Aerial_dry_weight', "Aerial_water_content",
+                   "Roots_fresh_weight", "Roots_dry_weight",
+                   "Root_water_content")
+
+
+table <- as.data.frame(matrix(nrow = 9, ncol = 9))
+names(table) <- numerical_var
+table$Species <- levels(data1$Species)
+
+for (i in 1:9){
+  for(nv in numerical_var){
+    k <- 1
+    #tf <- data1$Species == c
+    #num <- filter(data1, Species == c) %>% select(data1, one_of(nv)) 
+    #num2 <- num[[1]]
+    table[k, i] <- aov(nv ~ Treatment+Date+Species, data=data1)
+    k<- k+1
+  }
+}
+
 
 data2 <- select(data1, all_of(parameters))
 
@@ -93,7 +101,7 @@ for (a in a_leaf_num) {
   summary(a)
 }
 
-a_leaf_num <- aov(Leaf_number ~ Treatment+Week, data=data2)
+a_leaf_num <- aov(Leaf_number ~ Treatment+Week, data=data1)
 plot(a_leaf_num, 2)
 
 
