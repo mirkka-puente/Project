@@ -2,6 +2,7 @@ ws0 <- readxl::read_xlsx(path="water_strees.xlsx")
 library(tidyverse)
 library(agricolae)
 # Loop
+ws0 <- water_stress
 variables <- c("Plant_height" ,  "Leaf_number")
 week <- "W6"
 Tr <- levels(as.factor(ws0$Treatment))

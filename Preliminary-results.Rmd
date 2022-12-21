@@ -2,51 +2,96 @@
 title: "Preliminary-results.Rmd"
 author: "Group_4"
 date: "2022-12-10"
-output: html_document
+output:
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      results = 'asis', 
+                      fig.path = "results/",
+                      fig.width = 10,
+                      fig.height = 6.1803,
+                      dev = "png",
+                      dev.args = list(type = "cairo"),
+                      dpi = 100)
+
 ```
 
 ## Preliminary Results
 
-1. Title
+**1. Title**
+Assessment of water stress conditions in cultivated and wild species.
 
-2. Team members names
+**2. Team members names**
+Carbajal J., Castanier J., Chiapparoli L., Puente M. (Group 4).
 
-3. Introduction. Explain the origin and structure of your data.
+**3. Introduction. Explain the origin and structure of your data.**
+The data originated from a water stress test under greenhouse conditions. The experiment was carried out in 5 groups, each group evaluated 2 species; one crop and one weed, each species was subjected to 3 treatments: control, intermediate, and water stress. The experiment lasted 6 weeks, the parameters evaluated were soil humidity, electrical conductivity, plant height, leaf number, leaf length, leaf width, leaf area, chlorophyll content, aerial fresh weight, aerial dry weight, root length, root fresh weight, and root dry weight, the data collection was carried out weekly, except for leaf area, which was measured only twice, on weeks number 1 and 6.
+The data was collected by the five groups and with them a spreadsheet was created in GoogleDrive, it was used as a database to start the statistical analysis using RStudio program. The data frame consists of 23 columns and 1262 observations, it includes 13 numerical parameters, which are the parameters evaluated in the treatments, and 6 categorical parameters that include the species name, date, week, treatment, and plant ID. The statistical tests carried out for the hypotheses were ANOVA, Shapiro-Wilk test and TukeyHSD.
 
-4. Objectives and hypotheses.
+**4. Objectives and hypotheses.**
 
-5. Methods. What have you done? And what did you use to do it? Step by step, so anyone could do it again by reading this part.
-
-**Objectives**
-
+Objectives
 1. Evaluate the effects of the water stress treatments on the growth, development and photosynthetic activity in nine different plant species.
-2. Compare the responses to drought conditions between cultivated crops and wild weeds, and determine if there are significant differences.
+2. Compare the responses to drought conditions between cultivated crops and weeds, and determine if there are significant differences.
 
-**Hypotheses**
+Hypotheses
+- H1,0: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the nine tested plant species. 
+- H1,1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the nine tested plant species. 
+- H2,0: There will be no significant differences on the growth, development and photosynthetic activity of plants from the water treatments between crops and weeds. 
+- H2,1: There will be significant differences in growth, development and photosynthetic activity of plants from the water treatments between crops and weeds.
 
-a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the nine tested plant species. 
-b. H0.2: There will be no significant differences on the growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species. 
-c. H1.1: There will be significant effects of the water stress treatments on the growth, development and photosynthetic activity in the nine tested plant species. 
-d. H1.2: There will be significant differences in growth, development and photosynthetic activity of plants from the water treatments between cultivated and wild species.
 
-**Intended analyses**
+**5. Methods. What have you done? And what did you use to do it? Step by step, so anyone could do it again by reading this part.**
+Trial establishment. 
+Experiments were carried out by 5 groups of students. Each group was in charge of 2 species (one crop, one weed). (One species was repeated by two groups). Each species was subjected to 3 treatments or water stress levels (C, I, WS). Each group had 3 plastic trays (cmxcm), one tray for each WS treatment. Each tray contained 7 plants of each species (7+7=14 plants/tray). Each group worked with 42 potted plants, with a total of 210 experimental units (42x5) for the 5 groups and 9 plant species. 
 
-#### a. H0.1: There will be no significant effects of the water stress treatments on the growth, development and photosynthetic activity in the ten tested plant species.
+Plant Material. 
+A total of 9 species were evaluated under water stress conditions. The species were: Amaranthus retroflexus, Beta vulgaris, Hordeum vulgare, Lolium perenne, Portulacea oleracea, Raphanus sativus, Solanum lycopersicum, Sonchus oleraceus, and Spinacia oleracea. 
 
- 1. Investigate the effects of the 3 water stress treatments 
- 
- Plant Parameters to be used:
- 
- - Leaf number 
+Pot and substrate preparation.
+Each one of the five groups washed and prepared a total of 42 pots (1L). A circular piece of paper was cut and located in the base of pots for avoiding substrate loss and promoting water absorption from trays. For the preparation of substrate, we used a combination of peat moss and perlite in a ratio of 3:1 respectively. We mixed the components homogeneously in a large bucket and added a total of 4.5 L of water.  The pots were filled with substrate all the way to the top and located in the trays, with 14 pots per tray. 
+
+Transplant. 
+Transplant of 1 week old seedlings into the pots, one plant per pot. Addition of labels indicating species, treatment and repetition numbers. Initial watering of all plants (1.5-2 L/tray). Sowing date: 21/9/2022. Transplant date: 28/9/2022.
+
+Water stress treatments: C / I / WS.
+
+|Date        | Week | Amount of water per treatment (L)  |
+|------------|------|------------------------------------|
+|05/10/2022  |(W1)  |   2L / 1L / 0L                     |
+|13/10/2022  |(W2)  |   2L / 1L / 0L                     |
+|19/10/2022  |(W3)  |   2L / 1L / 0L                     |
+|26/10/2022  |(W4)  |   2L / 1L / 1L                     |
+|02/11/2022  |(W5)  |   2L / 1L / 0.5L                   |
+|09/11/2022  |(W6)  |   2L / 1L / 0.5L                   |
+
+
+A total of 13 numerical response variables were registered for their analyses: Soil Humidity (SH), Electrical Conductivity (EC), Plant Height (PH), Number of Leaves (NL), Leaf Length (LL), Leaf Width (LW), Chlorophyll Content (CC), Leaf Area (LA), Aerial Fresh Weight (AFW), Aerial Dry Weight (ADW), Root Length (RL), Root Fresh Weight (RFW), Root Dry Weight (RDW). Two additional variables are going to be analyzed but are not yet added to the final data frame, these are Aerial Water Content (AWC), Root Water Content (RWC). 
+
+**Data recollection**
+- Soil Humidity SH (%) and Electrical Conductivity EC (mS/cm) were measured with HH2 Moisture Meter (Delta-T Devices, Cambridge-England). 
+-  Number of Leaves (NL) was counted visually, excluding cotyledons. 
+- Plant Height (PH), Leaf Length (LL) and Leaf Width (LW) were measured with a standard metallic ruler in centimeters (cm). 
+- Chlorophyll Content (CC): measured with SPAD (SPAD units).
+- Leaf Area LA (cm2) and Root Length RL (cm) were measured only in W6 after sampling, with Digimizer and ImageJ software.
+- Aerial Fresh Weight (AFW) and Root Fresh Weight (RFW) were measured with an electronic scale in grams (g).
+- Aerial Dry Weight (ADW) and Root Dry Weight (RDW) were measured with electronic scale in grams (g), after samples were dried in an oven (70*C, 7 days).
+- Aerial Water Content (AWC) and Root Water Content (RWC) were calculated from fresh and dry weights and the following formula: WC=(FW-DW)/FW x100.
+
+**Overview of the statistical analyses to be performed**
+  
+Plant parameters to be analyzed:
+  - Leaf Number 
  - Chlorophyll content (W6)
- - Root length
- - Aerial weight (fresh and dry)
- - Root weight (fresh and dry)
- - Water content
+ - Aerial Fresh Weight 
+ - Aerial Dry Weight 
+ - Aerial Water Content
+ - Root Length 
+ - Root Fresh Weight 
+ - Root Dry Weight 
+ - Root Water Content 
  
  Categorical parameters:
  - Species
@@ -54,52 +99,323 @@ d. H1.2: There will be significant differences in growth, development and photos
  - Week 
  - Use
  - Treatment
- -Plant ID
- 
-  a. Modify our data table so it includes the parameters described before.
-  
-  b. Carry out the actual statistical tests:
+ - Plant ID
+First hypothesis:
 
-H1.0:
-
-    - One way ANOVA 
+    - Main test: One-way ANOVA 
     Categorical variables: treatments
     Dependent variables: plant parameters
     Calculate one parameter at a time 
     
-    parameters to control:
+    *Parameters to control:*
     - Date
     - Species
     
+Secondary tests:
     - Shapiro–Wilk test for normality of residuals 
     - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
     - Kruskal Wallis as Non-parametric test
 
-H2.0:
+Second hypothesis:
 
-    - Two way ANOVA 
-    Categorical variables: treatment and use
-    Dependent variables: plant parameters
-    Calculate one parameter at a time 
+  - Main test: Two way ANOVA 
+  Categorical variables: treatment and use
+  Dependent variables: plant parameters
+  Calculate one parameter at a time 
     
-    parameters to control:
-    - Date
-    - Species
+  *Parameters to control:*
+  - Date
+  - Species
     
+Secondary tests:
     - Shapiro–Wilk test for normality of residuals 
     - TukeyHSD test (PostHoc test) to recognize different groups from ANOVA
     - Kruskal Wallis as Non-parametric test    
-    
-6. Results. Figures and tables with captions and description of what do they mean.
+
+
+** First Hypothesis**
+
+*Statistical analyses*
+
+#### There will be no significant effects of the water stress treatments on the growth, development, and photosynthetic activity in the ten tested plant species.
+
+**Look over the raw data plots**
+We reviewed the raw data plots and decide the numerical variables to focus on. The analyses were made on the data of the final week (week 6) because for most variables the data was only available for week 6 and there were few dead plants at the end of the experiment.
+
+
+```{r echo = TRUE}
+
+#### Install packages --------------
+#install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
+#install.packages(c("tidyverse"), dependencies = TRUE)
+#install.packages("ggplot2", dependencies = TRUE)
+
+#### Packages ------------
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(agricolae)
+
+#### Calling the other scripts to call data ---
+#Comment this after getting the data
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
+
+#### Creating duplicate of the original data ------
+
+data1 <- ws0
+
+#### Adding columns to calculate water content for Aerial material and Root 
+
+data1 <- mutate(data1, 
+            Aerial_water_content = 
+              (Aerial_fresh_weight - Aerial_dry_weight)/Aerial_fresh_weight)
+
+data1 <- mutate(data1, 
+       Root_water_content = 
+         (Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight)
+
+
+#### Plant parameters to measure 
+
+parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
+                "Leaf_number", "Chlorophyll_content",
+                "Aerial_fresh_weight", "Aerial_dry_weight",     
+                "Root_length", "Roots_fresh_weight", 
+                "Roots_dry_weight", "Aerial_water_content",
+                "Root_water_content")
+
+
+#### variables to be used
+numerical_var <- c("Leaf_number", "Chlorophyll_content",
+                   "Aerial_fresh_weight", "Aerial_dry_weight",     
+                   "Root_length", "Roots_fresh_weight", 
+                   "Roots_dry_weight", "Aerial_water_content",
+                   "Root_water_content")
+
+#### GGPLOTS for Raw Data only ----------
+
+#Leaf number
+data1 %>% ggplot(aes(x = Week, y = Leaf_number, group = PlantId, 
+  col = Treatment)) + geom_line() + geom_point()+
+  facet_wrap(~Species) + 
+  ggtitle("Raw data: Relationship between Week and Leaf number for each species")
+
+#Leaf number in week 6
+data1 %>% filter(Week == "W6") %>%
+  ggplot(aes(x = Week, y = Leaf_number, group = PlantId, 
+  col = Treatment)) + geom_point()+
+  facet_wrap(~Species) + 
+  ggtitle("Raw data: Relationship between Week 6 and Leaf number for each species")
+
+#Chlorophyll content
+data1 %>% ggplot(aes(x = Week, y = Chlorophyll_content, group = PlantId, 
+  col = Treatment)) + geom_line() + geom_point() + 
+  facet_wrap(~Species) + 
+  ggtitle("Raw data: Relationship between Week and Chlorophyll content for each species")
+
+#Chlorophyll content in week 6
+data1 %>% filter(Week == "W6") %>%
+  ggplot(aes(x = Week, y = Chlorophyll_content, group = PlantId, 
+  col = Treatment)) + geom_point() + 
+  facet_wrap(~Species) + 
+  ggtitle("Raw data: Relationship between Week 6 and Chlorophyll content for each species")
+
+```
+
+**Running ANOVA tests on plant parameters**
+
+ANOVA analyses were used to determine significant differences of the 3 treatments on the following plant parameters: leaf number, (leaf area), chlorophyll content, root length, aerial fresh weight, aerial dry weight, root fresh weight, root dry weight, aerial water content, root water content.
+
+Specifically, the analysis was made with the “aov” function on R comparing the plant parameter and treatment, excluding the effects of date and species, and then the Tukey’s HSD test was performed to determine the significant differences between the treatment (command “HSD.test” from the “agricolae” package). For the “leaf number parameter”, the ANOVA was performed with the square roots of the original values, since it should follow a Poisson distribution, and so with the square root values the distribution would be more normal.
+
+For aerial water content and root water content the Kruskal-Wallis non-parametric test was used, since they are percentage values and they don’t follow normal distributions. The command “Kruskal” was used to perform this last analysis. 
+
+```{r echo = TRUE, results='markup'}
+
+#### Week we want to focus on
+
+w <- "W6"
+
+data2 <- data1 %>% filter(Week == w) %>% select(all_of(parameters))
+
+#### ANOVAs and Tukey tests for the plant parameters
+
+#ANOVA of leaf number with square root values
+
+Sqrt_leaf_number <- sqrt(data2$Leaf_number)   
+a1_leafnumb1 <- aov(Sqrt_leaf_number ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_leafnumb1)
+
+#Tukey
+TUKEY_leafnumb1 <- agricolae::HSD.test(a1_leafnumb1, "Treatment", group = TRUE)
+
+#Plot
+plot(TUKEY_leafnumb1, main = "Relationship between water stress treatments and squared values of leaf number", xlab = "Treatement", ylab = "Leaf number")
+
+#Shapiro Test for normality
+shap_leafnumb1<- shapiro.test(a1_leafnumb1$residuals)
+plot(a1_leafnumb1,2, main = "QQplot residuals")
+
+```
+
+
+``` {r echo = TRUE, results='markup'}
+# ANOVA of Chlorophyll content with square root values
+
+a1_chlorcont <- aov(Chlorophyll_content ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_chlorcont)
+
+#Tukey
+TUKEY_chlorcont <- agricolae::HSD.test(a1_chlorcont, "Treatment", group = TRUE)
+plot(TUKEY_chlorcont, main = "Relationship between water stress treatments and chlorophyll content", xlab = "Treatement", ylab = "Chlorophyll content")
+```
+
+
+
+```{r echo = TRUE, results='markup'}
+# ANOVA of Root length with square root values
+a1_rlength <- aov(Root_length ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_rlength)
+
+#Tukey
+TUKEY_rlength <- agricolae::HSD.test(a1_rlength, "Treatment", group = TRUE)
+plot(TUKEY_rlength, main = "Relationship between water stress treatments and root length", xlab = "Treatement", ylab = "Root length") 
+```
+
+```{r echo = TRUE, results='markup'}
+# ANOVA of Aerial fresh weight with square root values
+a1_aerfw <- aov(Aerial_fresh_weight ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_aerfw)
+
+#Tukey
+TUKEY_aerfw <- agricolae::HSD.test(a1_aerfw, "Treatment", group = TRUE, )
+plot(TUKEY_aerfw, main = "Relationship between water stress treatments and aerial fresh weight", xlab = "Treatement", ylab = "Aerial fresh weight") 
+```
+
+```{r echo = TRUE, results='markup'}
+
+# ANOVA of Aerial dry weight with square root values
+a1_aerdw <- aov(Aerial_dry_weight ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_aerdw)
+
+#Tukey
+TUKEY_aerdw <- agricolae::HSD.test(a1_aerdw, "Treatment", group = TRUE)
+plot(TUKEY_aerdw, main = "Relationship between water stress treatments and aerial dry weight", xlab = "Treatement", ylab = "Aerial dry weight")
+```
+
+```{r echo = TRUE, results='markup'}
+
+# ANOVA of Root fresh weight with square root values
+a1_rootfw <- aov(Roots_fresh_weight ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_rootfw)
+
+#Tukey
+TUKEY_rootfw <- agricolae::HSD.test(a1_rootfw, "Treatment", group = TRUE)
+plot(TUKEY_rootfw, main = "Relationship between water stress treatments and root fresh weight", xlab = "Treatement", ylab = "Root fresh weight") 
+```
+
+```{r echo = TRUE, results='markup'}
+
+# ANOVA of Root dry weight with square root values
+a1_rootdw <- aov(Roots_dry_weight ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_rootdw)
+
+#Tukey
+TUKEY_rootdw <- agricolae::HSD.test(a1_rootdw, "Treatment", group = TRUE)
+plot(TUKEY_rootdw, main = "Relationship between water stress treatments and root dry weight", xlab = "Treatement", ylab = "Root dry weight") 
+
+# Kruskal Wallis test for water content 
+KWtest_rootwc <- with(data2, kruskal(Root_water_content, Treatment, group=TRUE)) 
+
+# Kruskal-Wallis rank sum test
+plot(KWtest_rootwc, main = "Relationship between water stress treatments and root water content", ylim = c(0,1),xlab = "Treatement", ylab = "Aerial root content")
+```
+
+```{r echo =  TRUE, results='markup'}
+# ANOVA of Aerial water content with square root values
+a1_aerwc <- aov(Aerial_water_content ~ Treatment+Date+Species, data = data2)
+summary.aov(a1_aerwc)
+
+#Tukey
+TUKEY_aerwc <- agricolae::HSD.test(a1_aerwc, "Treatment", group = TRUE)
+plot(TUKEY_aerwc, main = "Relationship between water stress treatments and aerial water content", xlab = "Treatement", ylab = "Aerial water content", ylim = c(0,1))
+
+#Shapiro test
+shap_aerwc <-shapiro.test(a1_aerwc$residuals) 
+
+
+# Kruskal Wallis test for water content 
+KWtest_aerwc <- with(data2, kruskal(Aerial_water_content, Treatment, group=TRUE)) 
+
+# Kruskal-Wallis rank sum test
+plot(KWtest_aerwc, main = "Relationship between water stress treatments and aerial water content", ylim = c(0,1),xlab = "Treatement", ylab = "Aerial water content")
+
+```
+
+
+**Displaying nicely the p-values from ANOVA tests**
+
+We could not show a table to display nicely the p-values directly from ANOVA tests on different numerical variables because the `{r} aov()` function does not recognize the levels in Treatment (the model was always NULL). We would highly appreciate some feedback on the bugs. 
+
+We formed a table by "hand" with the p-values for each numerical values and determine whether there was any significant group or not (p-value < 0.05). 
+
+``` {r echo = TRUE, results='markup'}
+
+v_names <- c("Leaf_number_sqrt","Chlorophyll_content", "Root_length",
+           "Aerial_fresh_weight","Aerial_dry_weight",
+           "Roots_fresh_weight", "Roots_dry_weight", "Aerial_water_content")
+
+p_value <- c(4.18e-09, 0.555, 0.24805, 2e-16, 2.52e-07, 4.79e-05, 0.504, 0.434)
+sd_nsd <- c("Significantly different", "Not significantly different",
+           "Not significantly different","Significantly different", 
+           "Significantly different", "Significantly different", 
+           "Not significantly different", "Not significantly different")
+cn <- c("Variables", "P_values", "Significance")
+
+p_table <- as.data.frame(matrix(nrow = length(v_names), ncol = length(cn)))
+
+names(p_table) <- cn
+p_table$Variables <- v_names
+p_table$P_values <- p_value
+p_table$Significance <- sd_nsd
+
+#Knit table
+knitr::kable(p_table, caption = 'Summary table for p values from ANOVA tests for different plant variables. Anova tests were carried out to detect the effect of treatment. The effect of Species and Week were controled.')
+```
+
+**Displaying the differences among treatment groups for each plant species based on plant parameters**
+
+- We want to make a table showing 5 columns: species, variables and treatment levels. The columns of the treatment levels will show the groups that are significant different between each other. 
+
+
+We could not show a table to display nicely the different groups from the linear tests on different numerical variables because the PostHoc test could not be run (it was always NULL). We would highly appreciate some feedback on the bugs. 
+
+**Second Hypothesis**
+
+*Statistical analyses*
+TODO
+
+6. Results. Figures and tables with captions and descriptions of what they mean.
+TODO 
+- Choose the results from tests that are the best and plot them
 
 7. Discussion. From your objectives.
 
-8. Conclusions.
+It is not possible to have discussion now because these are preliminary results, so it is necessary to wait until the final results are obtained.
 
-```{r cars}
-###
-```
+8. Conclusion
 
-## Plots
+It is not possible to have conclusions now because these are preliminary results, so it is necessary to wait until the final results are obtained.
+
+9. Next steps in the analysis
+
+-Finish up the results of the second hypothesis.
+-Create a table for the ANOVA´s p-values.
+-Create bar plots for all the results.
+-Complete point 7 (discussion) and point 8 (conclusion).
+-Create the final presentation of the project with the final results.
+
 
 
