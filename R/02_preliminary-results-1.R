@@ -16,7 +16,7 @@ source("R/01_check-data.R")
 
 #### Creating duplicate of the original data ------
 
-data1 <- ws0 
+data1 <- ws0
 
 #### Adding columns to calculate water content 
 
@@ -50,8 +50,7 @@ numerical_var <- c("Leaf_number", "Chlorophyll_content",
 
 w <- "W6"
 
-data2 <- select(filter(data1, Week == w), all_of(parameters)) 
-
+data2 <- data1 %>% filter(Week == w) %>% select(all_of(parameters))
 
 #### Creating a data frame for  final results
 
@@ -65,17 +64,22 @@ sp <- levels(data2$Species)[1]
 nv <- numerical_var[1]
 i <- 1
 
+function_lm <- function(var, dt) {
+  r <- lm(dt[[var]] ~ dt$Treatment+Week, data = dt)
+}
+
+
 for(sp in levels(data2$Species)){
   for(nv in numerical_var){
     
-    data3 <- data2[data2$Species == sp, ]
-    
-    linear_model <- lm(data3[[nv]] ~ data3$Treatment)
-    hsd <- HSD.test(linear_model, "Treatment")
-    letter <- hsd$groups$groups[order(rownames(hsd$groups))]
+    data3 <- filter(data2, Species == sp)
+    linear_model <- lm(data3[[nv]] ~ data3$Treatment+Week, data = data3)
+    hsd1 <- HSD.test(linear_model, "Treatment")
+    letter <- hsd1$groups$groups[order(rownames(hsd1$groups))]
     final_table$Species[i] <- sp
     final_table$Variables[i] <- nv
     final_table[i, levels(data1$Treatment)] <- letter
+    
     i <- i + 1
   }
 }
@@ -84,6 +88,8 @@ for(sp in levels(data2$Species)){
 
 
 #### GGPLOTS ----------
+
+
 
 for (c in data2[7:14]){
   ggplot(data1, aes(x = Week, y = c, group = PlantId, col = Treatment)) +
