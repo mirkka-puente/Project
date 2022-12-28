@@ -2,6 +2,7 @@
 #install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
 #install.packages(c("tidyverse"), dependencies = TRUE)
 #install.packages("ggplot2", dependencies = TRUE)
+install.packages("factoextra")
 
 #### Libraries ------------
 library(dplyr)
@@ -9,6 +10,7 @@ library(tidyr)
 library(tidyverse)
 library(ggplot2)
 library(agricolae)
+library(factoextra)
 
 #### Calling the other R scripts ---
 #Comment this after getting the data
@@ -40,28 +42,53 @@ num.var <- c("Soil_humidity","Electrical_conductivity",
                    "Roots_dry_weight", "Aerial_water_content",
                    "Root_water_content")
 
+parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
+                "Soil_humidity","Electrical_conductivity",
+                "Plant_height", "Leaf_number", "Leaf_length",
+                "Leaf_width", "Leaf_area","Chlorophyll_content",
+                "Aerial_fresh_weight", "Aerial_dry_weight",     
+                "Root_length", "Roots_fresh_weight", 
+                "Roots_dry_weight", "Aerial_water_content",
+                "Root_water_content")
+
 dt2 <- select(dt1, all_of(num.var)) %>% drop_na()
+
+dt3 <- select(dt1, all_of(parameters)) %>% drop_na()
 
 #### PCA analysis (princomp) -----
 pca.dt2 <- princomp(dt2, cor = TRUE)
 
-# information output
-names(pca.dt2)
-
 # summary
 summary(pca.dt2)
 
+# Relationship between principal components
+biplot(pca.dt2, scale = 0)
+
 # correlation between components and data 
 round(cor(dt2, pca.dt2$scores), 3)
+fviz_screeplot(pca.dt2)
 
-#COMMENTS
-# determine if there is relevance, the closer to 1 then 
-# closer related to the data set 
+# COMMENTS
+# Correlation between given data and principal component
+# Determine: if there is relevancy between component and data
+# The closer to 1  the closer related to the data set 
 
-### Screen plot -----------
+### Scree plot -----------
 screeplot(pca.dt2, type = "l", main = "Screenplot for Water stress experiment")
-abline(1, 0, col = "red", lty = 2)
+abline(1, 0, col = "red", lty = 3)
 
-plot()
+
+### Plots with variables and points ------
+
+# Correlated variables
+fviz_pca_var(pca.dt2,
+             col.var = "contrib",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE)# Avoid text overlapping
+
+
+
+
+
 
 
