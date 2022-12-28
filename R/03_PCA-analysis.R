@@ -3,6 +3,7 @@
 #install.packages(c("tidyverse"), dependencies = TRUE)
 #install.packages("ggplot2", dependencies = TRUE)
 install.packages("factoextra")
+install.packages("psych")
 
 #### Libraries ------------
 library(dplyr)
@@ -11,6 +12,7 @@ library(tidyverse)
 library(ggplot2)
 library(agricolae)
 library(factoextra)
+library(psych)
 
 #### Calling the other R scripts ---
 #Comment this after getting the data
@@ -61,12 +63,10 @@ pca.dt2 <- princomp(dt2, cor = TRUE)
 # summary
 summary(pca.dt2)
 
-# Relationship between principal components
-biplot(pca.dt2, scale = 0)
 
 # correlation between components and data 
-round(cor(dt2, pca.dt2$scores), 3)
 fviz_screeplot(pca.dt2)
+round(cor(dt2, pca.dt2$scores), 3)
 
 # COMMENTS
 # Correlation between given data and principal component
@@ -86,7 +86,9 @@ fviz_pca_var(pca.dt2,
              gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
              repel = TRUE)# Avoid text overlapping
 
-
+### Principal
+pn <- principal(dt2, nfactors = 4, rotate = "none")
+dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
 
 
