@@ -7,7 +7,6 @@
 library(dplyr)
 library(tidyr)
 library(tidyverse)
-library(ggplot2)
 library(agricolae)
 library(car)
 
