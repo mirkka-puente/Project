@@ -53,7 +53,7 @@ col_nam <- c("Species","Variables", "P_value", "Significant")
 num_col <- length(col_nam)
 num_row <- length(levels(dt2$Species))  * length(num.var)
 anova_table <- as.data.frame(matrix(nrow = num_row, ncol = num_col))
-names(final_table) <- col_nam
+names(anova_table) <- col_nam
 
 #Variables for the loop
 sp <- levels(dt2$Species)[1]
@@ -63,19 +63,20 @@ i <- 1
 
 for(sp in levels(dt2$Species)){
   for(nv in num.var){
-    #Data filtered by species
-    dt3 <- dt2 %>% filter(Species == sp)
+    # Data filtered by species
+    dt3 <- dt2 %>% filter(Species == sp) %>% select(nv, "Treatment")
     dt3 <- na.omit(dt3)
     
-    #Anova test
+    # Anova test
         
-    model <- aov(dt3[[nv]] ~ dt3$Treatment, data = dt3)
+    model <- aov(dt3[[1]] ~ dt3$Treatment, data = dt3)
         
-    #Summary
+    # Summary
     p <- summary(model)[[1]][["Pr(>F)"]][1]
       
       
-    #Allocating the values in the table
+    # Allocating the values in the table
+    
     if (p < 0.05){
       anova_table$Species[i] <- sp
       anova_table$Variables[i] <- nv
@@ -95,12 +96,12 @@ for(sp in levels(dt2$Species)){
 
 anova_table <- anova_table %>% filter(Significant == "Yes")
 
-#Remove variables that are not gonna be used
+# Remove variables that are not gonna be used
 rm(sp, nv, i, p)
 
 
 
-### Bonferroni test
+### Bonferroni test -----
 
 b.test <- pairwise.t.test(dt2$Leaf_number, dt2$Treatment, p.adjust.method="bonferroni")
 
