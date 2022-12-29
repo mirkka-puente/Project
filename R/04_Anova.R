@@ -7,7 +7,6 @@
 library(dplyr)
 library(tidyr)
 library(tidyverse)
-library(agricolae)
 library(car)
 
 #### Calling the other R scripts ---
