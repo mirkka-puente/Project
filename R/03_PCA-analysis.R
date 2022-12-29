@@ -2,8 +2,8 @@
 #install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
 #install.packages(c("tidyverse"), dependencies = TRUE)
 #install.packages("ggplot2", dependencies = TRUE)
-install.packages("factoextra")
-install.packages("psych")
+#install.packages("factoextra")
+#install.packages("psych")
 
 #### Libraries ------------
 library(dplyr)
@@ -36,26 +36,15 @@ dt1 <- mutate(dt1,
 
 ### Neat data to work on
 
-num.var <- c("Soil_humidity","Electrical_conductivity",
-                   "Plant_height", "Leaf_number", "Leaf_length",
+num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
                    "Leaf_width", "Leaf_area","Chlorophyll_content",
                    "Aerial_fresh_weight", "Aerial_dry_weight",     
                    "Root_length", "Roots_fresh_weight", 
                    "Roots_dry_weight", "Aerial_water_content",
                    "Root_water_content")
 
-parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
-                "Soil_humidity","Electrical_conductivity",
-                "Plant_height", "Leaf_number", "Leaf_length",
-                "Leaf_width", "Leaf_area","Chlorophyll_content",
-                "Aerial_fresh_weight", "Aerial_dry_weight",     
-                "Root_length", "Roots_fresh_weight", 
-                "Roots_dry_weight", "Aerial_water_content",
-                "Root_water_content")
-
 dt2 <- select(dt1, all_of(num.var)) %>% drop_na()
 
-dt3 <- select(dt1, all_of(parameters)) %>% drop_na()
 
 #### PCA analysis (princomp) -----
 pca.dt2 <- princomp(dt2, cor = TRUE)
@@ -90,7 +79,7 @@ fviz_pca_var(pca.dt2,
 pn <- principal(dt2, nfactors = 4, rotate = "none")
 dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
-
-
-
-
+### Variables to work on 
+c('aerial dry/fresh weigth', 'root length', 'leaf number', 
+  'aerial water', 'root water', 'chloro', 'root dry/fresh weight')
+c('aerial dry weigth, aerial water content, root fresh weigth, leaf number')
