@@ -83,3 +83,4 @@ dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 c('aerial dry/fresh weigth', 'root length', 'leaf number', 
   'aerial water', 'root water', 'chloro', 'root dry/fresh weight')
 c('aerial dry weigth, aerial water content, root fresh weigth, leaf number')
+c("leaf area", "roots_dry_weigth","root_water_content", "chlorophyll_content")
