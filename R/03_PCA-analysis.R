@@ -79,8 +79,3 @@ fviz_pca_var(pca.dt2,
 pn <- principal(dt2, nfactors = 4, rotate = "none")
 dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
-### Variables to work on 
-c('aerial dry/fresh weigth', 'root length', 'leaf number', 
-  'aerial water', 'root water', 'chloro', 'root dry/fresh weight')
-c('aerial dry weigth, aerial water content, root fresh weigth, leaf number')
-c("leaf area", "roots_dry_weigth","root_water_content", "chlorophyll_content")
