@@ -97,7 +97,7 @@ for(sp in levels(Species2)){
   }
 }
 
-#### Significant variables
+# Significant variables
 #anova_table <- anova_table %>% filter(Significant == "Yes")
 
 # Remove variables that are not gonna be used
@@ -212,106 +212,81 @@ for(sp in levels(dt2$Species)){
 }
 
 # Remove variables that are not gonna be used
-rm(sp, i, p, w, col_nam, num_col,num_row, model)
+rm(sp, i, p, w, col_nam, num_col,num_row, model, Species2, dt2, week)
 
-#### Chlorophyll values W1 vs.W6 -------
+#### Tests for the remainder species -------
 
-### ANOVA with p-values to decide significant week for Chlorophyll content ---------- 
+parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
+                "Leaf_area","Roots_dry_weight",
+                "Root_water_content")
 
+num.var <- c("Leaf_area","Roots_dry_weight",
+             "Root_water_content")
+
+Species2 <- as.factor(c("Amaranthus retroflexus", "Hordeum vulgare",
+                        "Lolium perenne"))
+
+w <- "W6"
+
+dt2 <- dt1 %>% filter(Week == w) %>% select(one_of(parameters))
+
+
+### ANOVA with p-values to decide significant variables ---------- 
 
 # Creating the table to keep the information 
-
-col_nam <- c("Species", levels(week))
+col_nam <- c("Species","Variables", "P_value", "Significant")
 num_col <- length(col_nam)
-num_row <- length(levels(dt2$Species))
-chlo_table <- as.data.frame(matrix(nrow = num_row, ncol = num_col))
-names(chlo_table) <- col_nam
+num_row <- length(Species2)  * length(num.var)
+anova_table2 <- as.data.frame(matrix(nrow = num_row, ncol = num_col))
+names(anova_table2) <- col_nam
 
 # Variables for the loop
-sp <- levels(dt2$Species)[1]
-w <- levels(week)[1]
+
+sp <- levels(Species2)[1]
+nv <- num.var[1]
 i <- 1
 
 
-for(sp in levels(dt2$Species)){
-  
-  pvls <- c()
-  
-  for(w in levels(week)){
-    
+for(sp in levels(Species2)){
+  for(nv in num.var){
     # Data filtered by species
-    dt4 <- dt2 %>% filter(Week == w) %>% filter(Species == sp)
+    dt3 <- dt2 %>% filter(Species == sp) %>% select(one_of(nv,"Treatment"))
+    dt3 <- na.omit(dt3)
     
     # Anova test
-    model <- aov(dt4$Chlorophyll_content ~ dt4$Treatment, data = dt4)
+    
+    model <- aov(dt3[[1]] ~ dt3$Treatment, data = dt3)
     
     # Summary
     p <- summary(model)[[1]][["Pr(>F)"]][1]
-    p <- round(p, 4)
-    pvls <- c(pvls ,p)
     
     
-    # Remove data just in case
-    rm(dt4)
-  }
-  # Allocating the values in the table
-  chlo_table$Species[i] <- sp
-  chlo_table[i, levels(week)] <- pvls
-  i <- i + 1
-  rm(pvls)
-}
-
-# Remove variables that are not gonna be used
-rm(sp, i, p, w, parameters, col_nam, num_col,num_row, model)
-
-### Significant table for p-values ----------------------
-
-# Creating the table to keep the information 
-col_nam <- c("Species", levels(week))
-num_col <- length(col_nam)
-num_row <- length(levels(dt2$Species))
-chlo_result <- as.data.frame(matrix(nrow = num_row, ncol = num_col))
-names(chlo_result) <- col_nam
-
-# Variables for the loop
-sp <- levels(dt2$Species)[1]
-w <- levels(week)[1]
-i <- 1
-
-
-for(sp in levels(dt2$Species)){
-  
-  pvls <- c()
-  
-  for(w in levels(week)){
+    # Allocating the values in the table
     
-    # Data filtered by species
-    dt4 <- dt2 %>% filter(Week == w) %>% filter(Species == sp)
-    
-    # Anova test
-    model <- aov(dt4$Chlorophyll_content ~ dt4$Treatment, data = dt4)
-    
-    # Summary
-    p <- summary(model)[[1]][["Pr(>F)"]][1]
-    res <- NA
-    
-    if(p < 0.05){
-      res <- "significant"
-      pvls <- c(pvls ,res)
+    if (p < 0.05){
+      anova_table2$Species[i] <- sp
+      anova_table2$Variables[i] <- nv
+      anova_table2$P_value[i] <- p
+      anova_table2$Significant[i] <- "Yes"
     } else {
-      res <- "not significant"
-      pvls <- c(pvls ,res)
+      anova_table2$Species[i] <- sp
+      anova_table2$Variables[i] <- nv
+      anova_table2$P_value[i] <- p
+      anova_table2$Significant[i] <- "No"
     }
     
-    # Remove data just in case
-    rm(dt4, res)
+    i <- i + 1
+    rm(dt3)
   }
-  # Allocating the values in the table
-  leaf_result$Species[i] <- sp
-  leaf_result[i, levels(week)] <- pvls
-  i <- i + 1
-  rm(pvls)
 }
 
+#### Significant variables
+#anova_table <- anova_table %>% filter(Significant == "Yes")
+
 # Remove variables that are not gonna be used
-rm(sp, i, p, w, col_nam, num_col,num_row, model, week)
+rm(sp, nv, i, p, w, parameters, col_nam, num_col,num_row, 
+   num.var, model, dt2, Species2)
+
+
+
+
