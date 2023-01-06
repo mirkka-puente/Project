@@ -1,17 +1,5 @@
 #### Boxplots for Chlorophyll 
 
-#### Libraries ------------
-library(dplyr)
-library(tidyr)
-library(tidyverse)
-library(car)
-
-#### Calling the other R scripts ---
-#Comment this after getting the data
-source("R/00_download-from-drive.R")
-source("R/01_check-data.R")
-rm(i, p, w, ws.legend, ws.observ)
-
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
@@ -77,12 +65,3 @@ p7 <- ggplot(dt2, aes(x=Treatment, y=Chlorophyll_content, fill=Species)) +
 p8 <- ggplot(dt2, aes(x=Treatment, y=Chlorophyll_content, fill=Species)) + 
   geom_boxplot() +
   facet_wrap(~Treatment, scale="free")
-
-p1 
-p2
-p3 
-p4 
-p5 
-p6 
-p7 
-p8

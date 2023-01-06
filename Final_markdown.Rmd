@@ -1,0 +1,102 @@
+---
+title: "Preliminary Results"
+author: "Carbajal J., Castanier J., Chiapparoli L., Puente M. (Group 4)"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    code_folding: hide           # Fold the code
+    toc: yes                     # Table of contents
+    toc_depth: 4                
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      results = 'asis', 
+                      fig.path = "results/",
+                      fig.width = 10,
+                      fig.height = 6.1803,
+                      dev = "png",
+                      dev.args = list(type = "cairo"),
+                      dpi = 100)
+```
+
+## Introduction
+
+## Methods
+
+## Results 
+
+Mirkka :D
+
+```{r, include=FALSE, results='markup'}
+#### Install packages --------------
+#packs <- c("plyr","dplyr", "tidyr", "tidyverse","ggplot2",
+#           "factoextra", "psych", "ggpubr", "car")
+#install.packages(packs, dependencies = TRUE)
+
+#### Libraries ------------
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(factoextra)
+library(psych)
+library(car)
+library(ggpubr)
+
+#### Calling the other R scripts ---
+#Comment this after getting the data
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
+rm(i, p, w, ws.legend, ws.observ)
+
+#OVERVIEW OF DATA
+#BOXPLOT
+source("R/07_Boxplot.R", local = knitr::knit_global())
+rm(dt1, dt2, parameters, w)
+p1 
+p2
+p3 
+p4 
+p5 
+p6 
+p7 
+p8
+
+#PCA
+source("R/03_PCA-analysis.R", local = knitr::knit_global())
+pl1
+pl2
+rm(dt2, dt4, num.var)
+
+#ANOVA
+source("R/04_Anova.R", local = knitr::knit_global())
+knitr::kable(anova_table)
+knitr::kable(anova_table2)
+rm(dt1)
+
+#BONFERRONI
+source("R/05_Bonferroni.R", local = knitr::knit_global())
+knitr::kable(b_table)
+knitr::kable(res_table)
+knitr::kable(cc_table)
+knitr::kable(chres_table)
+knitr::kable(leaf_table)
+knitr::kable(leaf_result)
+rm(dt1, num.var, dt2, dt0)
+
+#BARPLOT
+source("R/06_Barplots.R", local = knitr::knit_global())
+rm(dt1, num.var, dt3, parameters)
+
+#PLOTS
+plot1
+plot2
+plot3
+plot4
+```
+
+## Discussion
+
+

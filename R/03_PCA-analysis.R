@@ -1,25 +1,3 @@
-#### Install packages --------------
-#install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
-#install.packages(c("tidyverse"), dependencies = TRUE)
-#install.packages("ggplot2", dependencies = TRUE)
-#install.packages("factoextra")
-#install.packages("psych")
-
-#### Libraries ------------
-library(dplyr)
-library(tidyr)
-library(tidyverse)
-library(ggplot2)
-library(agricolae)
-library(factoextra)
-library(psych)
-
-#### Calling the other R scripts ---
-#Comment this after getting the data
-source("R/00_download-from-drive.R")
-source("R/01_check-data.R")
-rm(i, p, w)
-
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
@@ -54,7 +32,7 @@ summary(pca.dt2)
 
 
 # correlation between components and data 
-fviz_screeplot(pca.dt2)
+pl1 <- fviz_screeplot(pca.dt2)
 round(cor(dt2, pca.dt2$scores), 3)
 
 # COMMENTS
@@ -70,7 +48,7 @@ abline(1, 0, col = "red", lty = 3)
 ### Plots with variables and points ------
 
 # Correlated variables
-fviz_pca_var(pca.dt2,
+pl2 <- fviz_pca_var(pca.dt2,
              col.var = "contrib",
              gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
              repel = TRUE)# Avoid text overlapping
@@ -78,4 +56,6 @@ fviz_pca_var(pca.dt2,
 ### Principal
 pn <- principal(dt2, nfactors = 4, rotate = "none")
 dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
+
+rm(dt1)
 

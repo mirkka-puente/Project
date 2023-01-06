@@ -1,20 +1,3 @@
-#install.packages(c("dplyr", "tidyr"), dependencies = TRUE)
-#install.packages(c("tidyverse"), dependencies = TRUE)
-#install.packages("ggplot2", dependencies = TRUE)
-#install.packages("car")
-
-#### Libraries ------------
-library(dplyr)
-library(tidyr)
-library(tidyverse)
-library(car)
-
-#### Calling the other R scripts -------
-#Comment this after getting the data
-source("R/00_download-from-drive.R")
-source("R/01_check-data.R")
-rm(i, p, w, ws.legend, ws.observ)
-
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0

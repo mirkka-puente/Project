@@ -1,19 +1,3 @@
-#install.packages("ggpubr")
-#### Libraries ------------
-library(plyr)
-library(dplyr)
-library(tidyr)
-library(tidyverse)
-library(car)
-library(ggplot2)
-library(ggpubr)
-
-#### Calling the other R scripts -------
-#Comment this after getting the data
-source("R/00_download-from-drive.R")
-source("R/01_check-data.R")
-rm(i, p, w, ws.legend, ws.observ)
-
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
@@ -92,7 +76,7 @@ plot1 <- ggplot(dt2, aes(x=Treatment, y=Leaf_area, fill=Species)) +
 plot1+labs(title="Leaf area per species in week 6", 
            x="Treatments", y = "Leaf Area (cm^3)")
 
-rm(dt2, w, p.la)
+rm(dt2, w)
 
 #### Summary of data for plot 2: Roots dry weight --------------
 dt2 <- data_summary(dt3, varname="Roots_dry_weight", 
@@ -124,7 +108,7 @@ plot2 <- ggplot(dt2, aes(x=Treatment, y=Roots_dry_weight, fill=Species)) +
 plot2+labs(title="Roots dry weight in grams per species in week 6", 
            x="Treatments", y = "Roots dry weight (g)")
 
-rm(dt2, p.rdw)
+rm(dt2)
 #### Summary of data for plot 3: Root water content --------------
 dt2 <- data_summary(dt3, varname="Root_water_content", 
                     groupnames=c("Species", "Treatment"))
@@ -155,7 +139,7 @@ plot3 <- ggplot(dt2, aes(x=Treatment, y=Root_water_content, fill=Species)) +
 plot3+labs(title="Average Root water content per species in week 6", 
            x="Treatments", y = "Root water content")
 
-rm(dt2, p.rwc)
+rm(dt2)
 
 #### Summary of data for plot 4: Chlorophyll content --------------
 
@@ -190,4 +174,4 @@ plot4+labs(title="Chlorophyll content per species in week 6",
            x="Treatments", y = "Chlorophyll content (SPAD)")
   
 
-rm(dt2, p.cc)
+rm(dt2)
