@@ -38,7 +38,7 @@ parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
 num.var <- c("Leaf_area","Roots_dry_weight",
              "Root_water_content", "Chlorophyll_content")
 
-Species2 <- as.factor(c("Beta vulgaris","Portulaca oleracea",
+Species2 <- as.factor(c("Amaranthus retroflexus","Beta vulgaris","Portulaca oleracea",
                         "Raphanus sativus","Solanum lycopersicum",
                         "Sonchus oleraceus","Spinacia oleracea"))
 
@@ -223,7 +223,7 @@ parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
 num.var <- c("Leaf_area","Roots_dry_weight",
              "Root_water_content")
 
-Species2 <- as.factor(c("Amaranthus retroflexus", "Hordeum vulgare",
+Species2 <- as.factor(c("Hordeum vulgare",
                         "Lolium perenne"))
 
 w <- "W6"

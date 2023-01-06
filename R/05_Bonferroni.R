@@ -140,14 +140,14 @@ rm(i, nv, sp, col_nam, n, num_col, num_row, parameters)
 parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
                 "Chlorophyll_content")
 
-Species2 <- c("Beta vulgaris","Portulaca oleracea",
-              "Raphanus sativus","Solanum lycopersicum",
-              "Sonchus oleraceus","Spinacia oleracea")
+Species2 <- as.factor(c("Amaranthus retroflexus","Beta vulgaris","Portulaca oleracea",
+                        "Raphanus sativus","Solanum lycopersicum",
+                        "Sonchus oleraceus","Spinacia oleracea"))
 
 dt <- dt1 %>% filter(Week == "W6") %>% select(one_of(parameters))
-dt0 <- dt %>% filter(Species == "Beta vulgaris") 
+dt0 <- dt %>% filter(Species == "Amaranthus retroflexus") 
 
-for (sp in Species2[2:6]){
+for (sp in Species2[2:7]){
   dt.t <- dt %>% filter(Species == sp) 
   dt0 <- bind_rows(dt0, dt.t)
   rm(dt.t)
