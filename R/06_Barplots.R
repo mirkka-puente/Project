@@ -52,14 +52,14 @@ dt2 <- data_summary(dt3, varname="Leaf_area",
 
 # Significant groups
 p.la <- c(" ", " ", " ",
-           " ", "*", " ", 
-           " "," ", " ", 
-           " "," ", " ",
-           " ", " "," ", 
-           " ", "*","*", 
-           " ","*","*",
-           " ","*"," ",
-           " ","*","*")
+          " ", "*", " ", 
+          " "," ", " ", 
+          " "," ", " ",
+          " ", " "," ", 
+          " ", "*","*", 
+          " ","*","*",
+          " ","*"," ",
+          " ","*","*")
 
 
 # Standard deviation of the mean as error bar
@@ -84,14 +84,14 @@ dt2 <- data_summary(dt3, varname="Roots_dry_weight",
 
 # Significant groups
 p.rdw <- c(" ", " ", " ",
-          " ", " ", " ", 
-          " ","*", " ", 
-          " "," ", " ",
-          " ", " "," ", 
-          " ", "*"," ", 
-          " "," "," ",
-          " "," "," ",
-          " ","*","*")
+           " ", " ", " ", 
+           " ","*", " ", 
+           " "," ", " ",
+           " ", " "," ", 
+           " ", "*"," ", 
+           " "," "," ",
+           " "," "," ",
+           " ","*","*")
 
 
 # Standard deviation of the mean as error bar
@@ -150,12 +150,12 @@ dt2 <- data_summary(dt3, varname="Chlorophyll_content",
 
 # Significant groups
 p.cc <- c(" ", " ", " ",
-           " ", " ", " ", 
-           " "," ", " ", 
-           " ","*", "*",
-           " ", "*","*", 
-           " ", " "," ", 
-           " "," "," ")
+          " ", " ", " ", 
+          " "," ", " ", 
+          " ","*", "*",
+          " ", "*","*", 
+          " ", " "," ", 
+          " "," "," ")
 
 
 # Standard deviation of the mean as error bar
@@ -164,27 +164,16 @@ plot4 <- ggplot(dt2, aes(x=Treatment, y=Chlorophyll_content, fill=Species)) +
   geom_errorbar(aes(ymin=Chlorophyll_content-sd, 
                     ymax=Chlorophyll_content+sd), width=0.3,
                 position=position_dodge(0.9)) +
-          geom_text(aes(y = Chlorophyll_content/2 + 1,
-                        label = c(p.cc)), vjust = 0.5, 
-                        colour = "black", size = 5,
-                        position = position_dodge(1))
+  geom_text(aes(y = Chlorophyll_content/2 + 1,
+                label = c(p.cc)), vjust = 0.5, 
+            colour = "black", size = 5,
+            position = position_dodge(1))
 
 # Finished bar plot
 plot4+labs(title="Chlorophyll content per species in week 6", 
            x="Treatments", y = "Chlorophyll content (SPAD)")
-  
+
 
 rm(dt2)
 
-#```{r, include=FALSE, results='markup'}
-#BARPLOT
-#source("R/06_Barplots.R", local = knitr::knit_global())
 
-#PLOTS
-#plot1
-#plot2
-#plot3
-#plot4
-
-#rm(dt1, num.var, dt3, parameters)
-#```
