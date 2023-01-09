@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 Mirkka :D
 
-```{r, include=FALSE, results='markup'}
+```{r, include=FALSE}
 #### Install packages --------------
 #packs <- c("plyr","dplyr", "tidyr", "tidyverse","ggplot2",
 #           "factoextra", "psych", "ggpubr", "car")
@@ -51,6 +51,9 @@ source("R/00_download-from-drive.R")
 source("R/01_check-data.R")
 rm(i, p, w, ws.legend, ws.observ)
 
+```
+
+```{r, include=FALSE, results='markup'}
 #OVERVIEW OF DATA
 #BOXPLOT
 source("R/07_Boxplot.R", local = knitr::knit_global())
@@ -63,19 +66,25 @@ p5
 p6 
 p7 
 p8
+```
 
+```{r, include=FALSE, results='markup'}
 #PCA
 source("R/03_PCA-analysis.R", local = knitr::knit_global())
 pl1
 pl2
 rm(dt2, dt4, num.var)
+```
 
+```{r, include=FALSE, results='markup'}
 #ANOVA
 source("R/04_Anova.R", local = knitr::knit_global())
 knitr::kable(anova_table)
 knitr::kable(anova_table2)
 rm(dt1)
+```
 
+```{r, include=FALSE, results='markup'}
 #BONFERRONI
 source("R/05_Bonferroni.R", local = knitr::knit_global())
 knitr::kable(b_table)
@@ -85,17 +94,9 @@ knitr::kable(chres_table)
 knitr::kable(leaf_table)
 knitr::kable(leaf_result)
 rm(dt1, num.var, dt2, dt0)
-
-#BARPLOT
-source("R/06_Barplots.R", local = knitr::knit_global())
-rm(dt1, num.var, dt3, parameters)
-
-#PLOTS
-plot1
-plot2
-plot3
-plot4
 ```
+
+
 
 ## Discussion
 

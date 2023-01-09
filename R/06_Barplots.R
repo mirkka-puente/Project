@@ -175,3 +175,16 @@ plot4+labs(title="Chlorophyll content per species in week 6",
   
 
 rm(dt2)
+
+#```{r, include=FALSE, results='markup'}
+#BARPLOT
+#source("R/06_Barplots.R", local = knitr::knit_global())
+
+#PLOTS
+#plot1
+#plot2
+#plot3
+#plot4
+
+#rm(dt1, num.var, dt3, parameters)
+#```
