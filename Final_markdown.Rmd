@@ -53,7 +53,7 @@ rm(i, p, w, ws.legend, ws.observ)
 
 ```
 
-```{r, include=FALSE, results='markup'}
+```{r, include=TRUE, results='markup'}
 #OVERVIEW OF DATA
 #BOXPLOT
 source("R/07_Boxplot.R", local = knitr::knit_global())
@@ -68,7 +68,7 @@ p7
 p8
 ```
 
-```{r, include=FALSE, results='markup'}
+```{r, include=TRUE, results='markup'}
 #PCA
 source("R/03_PCA-analysis.R", local = knitr::knit_global())
 pl1
@@ -76,7 +76,7 @@ pl2
 rm(dt2, dt4, num.var)
 ```
 
-```{r, include=FALSE, results='markup'}
+```{r, include=TRUE, results='markup'}
 #ANOVA
 source("R/04_Anova.R", local = knitr::knit_global())
 knitr::kable(anova_table)
@@ -84,7 +84,7 @@ knitr::kable(anova_table2)
 rm(dt1)
 ```
 
-```{r, include=FALSE, results='markup'}
+```{r, include=TRUE, results='markup'}
 #BONFERRONI
 source("R/05_Bonferroni.R", local = knitr::knit_global())
 knitr::kable(b_table)

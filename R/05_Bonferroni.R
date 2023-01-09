@@ -82,7 +82,7 @@ i <- 1
 for(sp in levels(dt2$Species)){
   for(nv in num.var){
     # Data filtered by species
-    dt3 <- dt2 %>% filter(Species == sp) %>% select(nv,"Treatment")
+    dt3 <- dt2 %>% filter(Species == sp) %>% select(one_of(nv,"Treatment"))
     
     # Bonferroni test
     
