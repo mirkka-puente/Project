@@ -64,13 +64,13 @@ pl2 <- fviz_pca_var(pca.dt2,
              gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
              repel = TRUE)# Avoid text overlapping
 
-### Principal
+### Four Principal components
 pn <- principal(dt2, nfactors = 4, rotate = "none")
 dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
 rm(dt1)
 
 #### Comparison between PC1 and PC2
-ggbiplot(second_pca.dt2, ellipse=TRUE, groups=dt3$Species)
+ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species)
 
 
