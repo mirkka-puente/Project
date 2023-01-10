@@ -1,3 +1,6 @@
+#install_github("vqv/ggbiplot")
+library(devtools)
+library(ggbiplot)
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
@@ -20,9 +23,17 @@ num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
                    "Root_length", "Roots_fresh_weight", 
                    "Roots_dry_weight", "Aerial_water_content",
                    "Root_water_content")
+num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
+              "Leaf_length","Leaf_width", "Leaf_area",
+              "Chlorophyll_content",
+             "Aerial_fresh_weight", "Aerial_dry_weight",     
+             "Root_length", "Roots_fresh_weight", 
+             "Roots_dry_weight", "Aerial_water_content",
+             "Root_water_content")
+
 
 dt2 <- select(dt1, all_of(num.var)) %>% drop_na()
-
+dt3 <- select(dt1, all_of(num.var2)) %>% drop_na()
 
 #### PCA analysis (princomp) -----
 pca.dt2 <- princomp(dt2, cor = TRUE)
@@ -58,4 +69,8 @@ pn <- principal(dt2, nfactors = 4, rotate = "none")
 dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
 rm(dt1)
+
+#### Comparison between PC1 and PC2
+ggbiplot(second_pca.dt2, ellipse=TRUE, groups=dt3$Species)
+
 

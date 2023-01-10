@@ -13,6 +13,7 @@ p <- # path to the data
 ### Create data folder if needed
 if (!dir.exists('data')) dir.create('data')
 
+
 ### download file using 'googledrive' ---------------------
 # You need a Google account: user and password.
 # A web page will open the first time
