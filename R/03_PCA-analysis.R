@@ -1,6 +1,4 @@
-install_github("vqv/ggbiplot")
-library(devtools)
-library(ggbiplot)
+
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0

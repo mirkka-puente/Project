@@ -6,7 +6,7 @@ output:
   html_document:
     code_folding: hide           # Fold the code
     toc: yes                     # Table of contents
-    toc_depth: 4                
+    toc_depth: 4 
 ---
 
 ```{r setup, include=FALSE}
@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## Methods
 
-## Results 
+## Results
 
 Mirkka :D
 
@@ -34,7 +34,11 @@ Mirkka :D
 #           "factoextra", "psych", "ggpubr", "car")
 #install.packages(packs, dependencies = TRUE)
 
+install_github("vqv/ggbiplot")
+
 #### Libraries ------------
+library(devtools)
+library(ggbiplot)
 library(plyr)
 library(dplyr)
 library(tidyr)
@@ -96,8 +100,4 @@ knitr::kable(leaf_result)
 rm(dt1, num.var, dt2, dt0)
 ```
 
-
-
 ## Discussion
-
-
