@@ -1,4 +1,4 @@
-#install_github("vqv/ggbiplot")
+install_github("vqv/ggbiplot")
 library(devtools)
 library(ggbiplot)
 #### Creating duplicate of the original data ------
