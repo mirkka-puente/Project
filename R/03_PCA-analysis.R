@@ -1,3 +1,8 @@
+remotes::install_github('vqv/ggbiplot')
+
+#### Libraries ------------
+library(devtools)
+library(ggbiplot)
 
 #### Creating duplicate of the original data ------
 

@@ -1,12 +1,16 @@
 ---
-title: "Water Stress Experiment"
-author: "Carbajal J., Castanier J., Chiapparoli L., Puente M. (Group 4)"
+title: "Water stress Experiment"
+author: 
+   - Carbajal J.
+   - Castanier J.
+   - Chiapparoli L.
+   - Puente M. (Group 4)
 date: '`r Sys.Date()`'
 output:
   html_document:
-   code_folding: hide           # Fold the code
-   toc: yes                     # Table of contents
-   toc_depth: 4 
+    code_folding: hide           # Fold the code
+    toc: yes                     # Table of contents
+    toc_depth: 4      
 ---
 
 ```{r setup, include=FALSE}
@@ -35,7 +39,7 @@ Mirkka :D
 #           "factoextra", "psych", "ggpubr", "car")
 #install.packages(packs, dependencies = TRUE)
 
-install_github("vqv/ggbiplot")
+#install_github("vqv/ggbiplot")
 
 #### Libraries ------------
 library(devtools)
