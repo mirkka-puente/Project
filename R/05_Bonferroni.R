@@ -229,3 +229,4 @@ for(sp in levels(Species2)){
 
 # Remove variables for future
 rm(i, sp, col_nam, n, num_col, num_row, parameters, groups, Species2)
+
