@@ -57,6 +57,12 @@ dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
 rm(dt1)
 
-### GGBIPLOT
+### GGBIPLOT############################################
 ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species)
-pl2
+########################################################
+
+
+
+
+
+
