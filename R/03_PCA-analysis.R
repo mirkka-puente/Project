@@ -91,7 +91,7 @@ fviz_contrib(pca.dt2, choice = "var", axes = 1, top = 10)
 fviz_contrib(pca.dt2, choice = "var", axes = 2, top = 10)
 
 # Total contribution
-fviz_contrib(res.pca, choice = "var", axes = 1:2, top = 10)
+fviz_contrib(pca.dt2, choice = "var", axes = 1:2, top = 10)
 
 # Interpret: The red dashed line on the graph above indicates 
 # the expected average contribution. 
@@ -103,37 +103,27 @@ fviz_pca_var(pca.dt2, col.var = "contrib",
                gradient.cols = c("midnightblue", 
                                  "mediumseagreen","red"))
 
-####################################################
-#library("FactoMineR")
-pca2 <- prcomp(dt3, graph = FALSE)
-# Create a grouping variable using kmeans
-# Create 3 groups of variables (centers = 3)
-set.seed(123)
-res.km <- kmeans(var$coord, centers = 3, nstart = 25)
-grp <- as.factor(res.km$cluster)
 
-# Color variables by groups
-fviz_pca_var(pca2, col.var = grp, 
-             palette = c("midnightblue", 
-                          "mediumseagreen","red"),
+#### Cluster of Species + Treatments
+pl3 <- ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species) +
+  geom_point(aes(shape = dt3$Treatment, 
+                 colour = dt3$Species), size = 2.5)
+
+pl3
+
+
+# Color variables by groups according to PC1-2 total contribution
+
+grp <- factor(c("1", "3", "2",
+                "1", "1", "3",
+                "2", "1", "2", 
+                "3", "2", "3",
+                "3"))
+
+
+fviz_pca_var(pca.dt2, col.var = grp, 
+             palette = "Set2",
              legend.title = "Cluster")
-
-#####
-
-fviz_pca_biplot(pca.dt2, 
-                # Individuals
-                geom.ind = "point",
-                fill.ind = dt3$Species, col.ind = "black",
-                pointshape = 21, pointsize = 2,
-                palette = "SEt3",
-                addEllipses = TRUE,
-                # Variables
-                alpha.var ="contrib", col.var = "contrib",
-                gradient.cols = "npg",
-                
-                legend.title = list(fill = "Species", color = "Contrib",
-                                    alpha = "Contrib")
-)
 
 
 fviz_pca_biplot(pca.dt2, 
@@ -144,22 +134,15 @@ fviz_pca_biplot(pca.dt2,
                 fill.ind = dt3$Species,
                 col.ind = "black",
                 # Color variable by groups
-                col.var =  factor(c("c", "c", "c",
-                                       "c", "c","v",
-                                       "v", "v",     
-                                       "v", "y", 
-                                       "y", "y",
-                                       "y")),
+                col.var = grp,
                 
                 legend.title = list(fill = "Species", color = "Clusters"),
                 repel = TRUE,
                 addEllipses = TRUE,
             
 )+
-  ggpubr::fill_palette("Set3")+      # Indiviual fill color
-  ggpubr::color_palette("jco")      # Variable colors
+  ggpubr::fill_palette("Pastel1")+      # Indiviual fill color
+  ggpubr::color_palette("Dark2")      # Variable colors
 
-#### Cluster of Species + Treatments
-pl3 <- ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species) +
-  geom_point(aes(shape = dt3$Treatment, 
-                 colour = dt3$Species), size = 2.5)
+
+
