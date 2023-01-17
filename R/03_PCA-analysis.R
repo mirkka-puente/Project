@@ -68,7 +68,7 @@ dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 rm(dt1)
 
 
-################################### NEW STUFF
+#### 
 
 # Extract the results for species and variables, respectively
 var <- get_pca_var(pca.dt2)
@@ -119,6 +119,15 @@ grp <- factor(c("1", "3", "2",
                 "2", "1", "2", 
                 "3", "2", "3",
                 "3"))
+
+
+
+
+group2 <- c("Leaf_length", "Aerial_fresh_weight", "Root_length", 
+            "Roots_dry_weight")
+
+group3 <- c("Leaf_number", "Chlorophyll_content", "Roots_fresh_weight", 
+            "Aerial_water_content", "Root_water_content")
 
 
 fviz_pca_var(pca.dt2, col.var = grp, 
