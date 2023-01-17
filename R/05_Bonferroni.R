@@ -14,12 +14,16 @@ dt1 <- mutate(dt1,
 
 ### Neat data to work on
 
-parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
-                "Leaf_area","Roots_dry_weight",
-                "Root_water_content")
+num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
+             "Leaf_width", "Leaf_area","Aerial_fresh_weight", 
+             "Aerial_dry_weight","Root_length", 
+             "Roots_fresh_weight","Roots_dry_weight", 
+             "Aerial_water_content","Root_water_content")
 
-num.var <- c("Leaf_area","Roots_dry_weight",
-             "Root_water_content")
+
+parameters <- c("Week", 'Date','Species', 'PlantId', 
+                'Use', 'Treatment', num.var)
+
 
 
 dt2 <- dt1 %>% filter(Week == "W6") %>% select(one_of(parameters))
@@ -118,6 +122,12 @@ for(sp in levels(dt2$Species)){
 # Remove variables for future
 rm(i, nv, sp, col_nam, n, num_col, num_row, parameters)
 
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# CHLOROPHYLL CONTENT
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 #### Chlorophyll content for some species ------------------------------
 
 parameters <- c("Week", 'Date','Species', 'PlantId', 'Use', 'Treatment',
@@ -136,6 +146,7 @@ for (sp in Species2[2:7]){
   rm(dt.t)
 }
 rm(dt, sp)
+
 
 #### Bonferroni test para Chlorophyll content ----------
 
