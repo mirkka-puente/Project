@@ -124,6 +124,8 @@ heatmap.2(data)
 
 heatmap(data, Colv = NA, Rowv = NA, scale = "none",
         cexRow = 1, cexCol = 0.8, margins = c(6.8, 0), 
-        col = heat.colors(200))
+        col = bluered(100))
 
-legend(x="topleft", legend=c("max", "med", "min"),fill=heat.colors(3))
+legend(x="bottomleft", legend=c("min", "ave", "max"), 
+       fill=bluered(3))
+
