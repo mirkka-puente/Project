@@ -48,7 +48,7 @@ summary(pca.dt2)
 
 
 # correlation between components and data 
-pl1 <- fviz_eig(pca.dt2, addlabels = TRUE, ylim = c(0, 50))
+fviz_eig(pca.dt2, addlabels = TRUE, ylim = c(0, 50))
 round(cor(dt2, pca.dt2$scores), 3)
 
 # COMMENTS
