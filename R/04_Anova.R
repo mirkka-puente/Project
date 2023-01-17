@@ -166,12 +166,12 @@ significant <- result.table %>% filter(W6 == "significant")
 
 rm(dt2, num.var.n.aerial, parameters, num.var)
 
-final_species <- as.factor(c("Amaranthus retroflexus","Beta vulgaris",
+final_species <- c("Amaranthus retroflexus","Beta vulgaris",
                         "Hordeum vulgare",
                         "Portulaca oleracea",
                         "Raphanus sativus",
                         "Sonchus oleraceus", 
-                        "Spinacia oleracea"))
+                        "Spinacia oleracea")
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

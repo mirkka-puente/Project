@@ -27,6 +27,7 @@ num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
                    "Root_length", "Roots_fresh_weight", 
                    "Roots_dry_weight", "Aerial_water_content",
                    "Root_water_content")
+
 num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
               "Leaf_length","Leaf_width", "Leaf_area",
               "Chlorophyll_content",

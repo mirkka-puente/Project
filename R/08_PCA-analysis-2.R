@@ -14,31 +14,49 @@ dt1 <- mutate(dt1,
 
 ### Neat data to work on
 
-num.var <- c("Plant_height", "Leaf_length",
-             "Leaf_width", "Leaf_area", "Aerial_dry_weight", 
-             "Aerial_fresh_weight",
-             "Root_length", "Roots_dry_weight")
+num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
+             "Leaf_width", "Leaf_area","Chlorophyll_content",
+             "Aerial_fresh_weight", "Aerial_dry_weight",     
+             "Root_length", "Roots_fresh_weight", 
+             "Roots_dry_weight", "Aerial_water_content",
+             "Root_water_content")
 
-num.var2 <- c("Species","Treatment","Plant_height", 
-              "Leaf_length", "Leaf_width", "Leaf_area", 
-              "Aerial_dry_weight", 
-              "Aerial_fresh_weight",
-              "Root_length", "Roots_dry_weight")
+num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
+              "Leaf_length","Leaf_width", "Leaf_area",
+              "Chlorophyll_content",
+              "Aerial_fresh_weight", "Aerial_dry_weight",     
+              "Root_length", "Roots_fresh_weight", 
+              "Roots_dry_weight", "Aerial_water_content",
+              "Root_water_content")
+
+final_species <- c("Amaranthus retroflexus","Beta vulgaris",
+                   "Hordeum vulgare",
+                   "Portulaca oleracea",
+                   "Raphanus sativus",
+                   "Sonchus oleraceus", 
+                   "Spinacia oleracea")
+
+### Chosing my species and variables
+temp <- c(dt1$Species)
+
+dt2 <- dt1 %>% filter(temp %in% final_species, Week == "W6") %>% 
+       select(all_of(num.var)) %>% drop_na()
+
+dt3 <- dt1 %>% filter(temp %in% final_species, Week == "W6") %>% 
+  select(all_of(num.var2)) %>% drop_na()
+
+rm(temp)
 
 
+#### PCA analysis (princomp) -----
+pca.dt2 <- princomp(dt2, cor = TRUE)
 
-dt2 <- dt1 %>% filter(Week == "W6") %>% select(all_of(num.var)) %>% 
-  drop_na()
+# summary
+summary(pca.dt2)
 
-dt3 <- dt1 %>% filter(Week == "W6") %>% select(all_of(num.var2)) %>% 
-  drop_na()
-
-
-#### PCA 
-pca.dt2 <- prcomp(dt2, center = TRUE, scale. = TRUE)
 
 # correlation between components and data 
-pl1 <- fviz_screeplot(pca.dt2)
+pl1 <- fviz_eig(pca.dt2, addlabels = TRUE, ylim = c(0, 50))
 round(cor(dt2, pca.dt2$scores), 3)
 
 # COMMENTS
@@ -47,25 +65,102 @@ round(cor(dt2, pca.dt2$scores), 3)
 # The closer to 1  the closer related to the data set 
 
 ### Scree plot -----------
-screeplot(pca.dt2, type = "l", main = "Screenplot for experiment")
+screeplot(pca.dt2, type = "l", main = "Screenplot for Water stress experiment")
 abline(1, 0, col = "red", lty = 3)
 
 
 ### Plots with variables and points ------
-
-# Correlated variables
-pl2 <- fviz_pca_var(pca.dt2,
-                    col.var = "contrib",
-                    gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
-                    repel = TRUE)# Avoid text overlapping
-
 ### Four Principal components
-pn <- principal(dt2, nfactors = 2, rotate = "none")
+pn <- principal(dt2, nfactors = 4, rotate = "none")
 dt4 <- as.data.frame(round(cor(dt2, pn$scores), 3))
 
 rm(dt1)
 
-### GGBIPLOT
-ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species)
-pl2
+
+#### 
+
+# Extract the results for species and variables, respectively
+var <- get_pca_var(pca.dt2)
+
+# Quality of representation of the variables
+# Color by cos2 values: quality
+# The closer a variable is to the circle of correlations, 
+# the better its representation on the factor map 
+# (and the more important it is to interpret these components) 
+fviz_pca_var(pca.dt2, col.var = "cos2",
+             gradient.cols = c("midnightblue", 
+                                "mediumseagreen", "red"), 
+                                repel = TRUE) # Avoid text overlapping
+
+
+# Contributions of variables to PC1
+fviz_contrib(pca.dt2, choice = "var", axes = 1, top = 10)
+
+# Contributions of variables to PC2
+fviz_contrib(pca.dt2, choice = "var", axes = 2, top = 10)
+
+# Total contribution
+fviz_contrib(pca.dt2, choice = "var", axes = 1:2, top = 10)
+
+# Interpret: The red dashed line on the graph above indicates 
+# the expected average contribution. 
+
+#The most important (or, contributing) variables can be highlighted
+#on the correlation plot as follow:
+
+fviz_pca_var(pca.dt2, col.var = "contrib",
+             gradient.cols = c("midnightblue", 
+                                "mediumseagreen","red"))
+                                             
+
+#### Cluster of Species + Treatments
+pl3 <- ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species) +
+  geom_point(aes(shape = dt3$Treatment, 
+                 colour = dt3$Species), size = 2.5)
+
+pl3
+
+
+# Color variables by groups according to PC1-2 total contribution
+
+grp <- factor(c("3", "2", "3", "1", 
+                "1", "3", "1", "1", 
+                "2", "3", "2", "2",
+                "3"))
+
+
+# Groups to draw (Group 1)
+group1 <- c('Leaf_width', "Leaf_area",
+            "Aerial_fresh_weight", "Aerial_dry_weight")
+
+group2 <- c("Aerial_water_content", "Root_length", 
+            "Roots_dry_weight", "Leaf_number")
+
+group3 <- c("Plant_height", "Roots_fresh_weight", 
+            "Leaf_length","Root_water_content", "Chlorophyll_content")
+
+
+fviz_pca_var(pca.dt2, col.var = grp, 
+             palette = "Set2",
+             legend.title = "Cluster")
+
+
+fviz_pca_biplot(pca.dt2, 
+                # Fill individuals by groups
+                geom.ind = "point",
+                pointshape = 21,
+                pointsize = 2.5,
+                fill.ind = dt3$Species,
+                col.ind = "black",
+                # Color variable by groups
+                col.var = grp,
+                
+                legend.title = list(fill = "Species", color = "Clusters"),
+                repel = TRUE,
+                addEllipses = TRUE,
+                
+)+
+  ggpubr::fill_palette("Pastel1")+      # Indiviual fill color
+  ggpubr::color_palette("Dark2")      # Variable colors
+
 
