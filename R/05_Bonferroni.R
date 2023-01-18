@@ -1,3 +1,33 @@
+#### Install packages --------------
+#remotes::install_github('vqv/ggbiplot')
+#packs <- c("plyr","dplyr", "tidyr", "tidyverse","ggplot2",
+#           "factoextra", "psych", "ggpubr", "car")
+#install.packages(packs, dependencies = TRUE)
+
+#install_github("vqv/ggbiplot")
+#### Libraries ------------
+library(devtools)
+library(ggbiplot)
+library(corrplot)
+library(devtools)
+library(ggbiplot)
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(factoextra)
+library(psych)
+library(car)
+library(ggpubr)
+
+#### Calling the other R scripts ---
+#Comment this after getting the data
+
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
+rm(i, p, w, ws.legend, ws.observ)
+
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
