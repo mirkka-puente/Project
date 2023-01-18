@@ -14,18 +14,28 @@ dt1 <- mutate(dt1,
 
 ### Neat data to work on
 
-num.var <- c("Roots_fresh_weight", "Roots_dry_weight",
-             "Leaf_length", "Leaf_number", "Plant_height",
-             "Chlorophyll_content", "Aerial_water_content",
-             "Root_water_content", "Aerial_fresh_weight")
+num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
+             "Leaf_width", "Leaf_area","Chlorophyll_content",
+             "Aerial_fresh_weight", "Aerial_dry_weight",     
+             "Root_length", "Roots_fresh_weight", 
+             "Roots_dry_weight", "Aerial_water_content",
+             "Root_water_content")
+
+num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
+              "Leaf_length","Leaf_width", "Leaf_area",
+              "Chlorophyll_content",
+              "Aerial_fresh_weight", "Aerial_dry_weight",     
+              "Root_length", "Roots_fresh_weight", 
+              "Roots_dry_weight", "Aerial_water_content",
+              "Root_water_content")
 
 
-num.var2 <- c("Species","Treatment", num.var)
+final_species <- c("Amaranthus retroflexus", "Beta vulgaris",      
+                   "Portulaca oleracea", "Raphanus sativus",      
+                   "Solanum lycopersicum","Sonchus oleraceus",
+                   "Spinacia oleracea")
 
 
-final_species <- c("Amaranthus retroflexus","Beta vulgaris",
-                   "Portulaca oleracea","Raphanus sativus",
-                   "Sonchus oleraceus", "Spinacia oleracea")
 
 ### Chosing my species and variables
 temp <- c(dt1$Species)
@@ -113,19 +123,16 @@ rm(sp, i, nv, col_nam, num_col,num_row, model, species)
 rownames(table.p.values) <- table.p.values$Species
 
 # The mtcars dataset:
-data <- as.matrix(table.p.values[,2:10])
+data <- as.matrix(table.p.values[,2:14])
 
 # Default Heatmap
 
-install.packages("gplots")
-library(gplots)
-
-heatmap.2(data)
 
 heatmap(data, Colv = NA, Rowv = NA, scale = "none",
         cexRow = 1, cexCol = 0.8, margins = c(6.8, 0), 
-        col = bluered(100))
+        col = heat.colors(200))
 
-legend(x="bottomleft", legend=c("min", "ave", "max"), 
-       fill=bluered(3))
+legend(x="bottomleft", legend=c("p < 0.05(*)",
+      "0.05 < p < 0.5", "p > 0.5"), 
+       fill=heat.colors(3))
 
