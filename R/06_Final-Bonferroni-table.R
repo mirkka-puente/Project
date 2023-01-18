@@ -4,7 +4,7 @@
 #install.packages(packs, dependencies = TRUE)
 
 #install_github("vqv/ggbiplot")
-install.packages("flextable")
+#install.packages("flextable")
 
 
 #### Libraries ------------
