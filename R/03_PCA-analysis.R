@@ -1,9 +1,34 @@
-remotes::install_github('vqv/ggbiplot')
 
+#### Install packages --------------
+#remotes::install_github('vqv/ggbiplot')
+#packs <- c("plyr","dplyr", "tidyr", "tidyverse","ggplot2",
+#           "factoextra", "psych", "ggpubr", "car")
+#install.packages(packs, dependencies = TRUE)
+
+#install_github("vqv/ggbiplot")
 #### Libraries ------------
 library(devtools)
 library(ggbiplot)
-library("corrplot")
+library(corrplot)
+library(devtools)
+library(ggbiplot)
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(factoextra)
+library(psych)
+library(car)
+library(ggpubr)
+
+#### Calling the other R scripts ---
+#Comment this after getting the data
+
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
+rm(i, p, w, ws.legend, ws.observ)
+
 
 #### Creating duplicate of the original data ------
 
@@ -120,15 +145,6 @@ grp <- factor(c("1", "3", "2",
                 "2", "1", "2", 
                 "3", "2", "3",
                 "3"))
-
-
-
-
-group2 <- c("Leaf_length", "Aerial_fresh_weight", "Root_length", 
-            "Roots_dry_weight")
-
-group3 <- c("Leaf_number", "Chlorophyll_content", "Roots_fresh_weight", 
-            "Aerial_water_content", "Root_water_content")
 
 
 fviz_pca_var(pca.dt2, col.var = grp, 
