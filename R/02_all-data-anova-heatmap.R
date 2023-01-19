@@ -67,7 +67,7 @@ final_species <- c("Amaranthus retroflexus", "Beta vulgaris",
 
 
 
-### Chosing my species and variables
+### Choosing my species and variables
 temp <- c(dt1$Species)
 
 dt2 <- dt1 %>% filter(temp %in% final_species, Week == "W6") %>% 
@@ -156,8 +156,6 @@ rownames(table.p.values) <- table.p.values$Species
 data <- as.matrix(table.p.values[,2:14])
 
 # Default Heatmap
-
-
 heatmap(data, Colv = NA, Rowv = NA, scale = "none",
         cexRow = 1, cexCol = 0.8, margins = c(6.8, 0), 
         col = heat.colors(200))
@@ -165,4 +163,7 @@ heatmap(data, Colv = NA, Rowv = NA, scale = "none",
 legend(x="bottomleft", legend=c("p < 0.05(*)",
       "0.05 < p < 0.5", "p > 0.5"), 
        fill=heat.colors(3))
+
+# Remove variables
+rm(final_species, num.var, num.var2)
 

@@ -194,15 +194,5 @@ result.table <- bind_rows(result.table, plant.height.res)
 not.correct <- result.table %>% filter(W1 == "significant")
 significant <- result.table %>% filter(W6 == "significant")
 
-rm(dt2, num.var.n.aerial, num.var)
-
-final_species <- c("Amaranthus retroflexus","Beta vulgaris",
-                        "Hordeum vulgare",
-                        "Portulaca oleracea",
-                        "Raphanus sativus",
-                        "Sonchus oleraceus", 
-                        "Spinacia oleracea")
-
-
-
+rm(dt2, num.var)
 

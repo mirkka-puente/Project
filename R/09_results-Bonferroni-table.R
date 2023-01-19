@@ -316,3 +316,6 @@ bonferroni_table<- highlight(bonferroni_table, ~ Control.Stress<0.05,
 bonferroni_table<- highlight(bonferroni_table, ~ Intermediate.Stress<0.05, 
                              ~ Intermediate.Stress, color = "green")
 bonferroni_table
+
+#Remove the variables we are not using 
+rm(nome_treatments, num.var, numvar3)

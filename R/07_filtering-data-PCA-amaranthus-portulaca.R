@@ -59,8 +59,8 @@ num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number",
               "Roots_dry_weight", "Aerial_water_content",
               "Root_water_content")
 
-final_species <- c("Raphanus sativus",
-                   "Spinacia oleracea")
+final_species <- c("Amaranthus retroflexus",
+                   "Portulaca oleracea")
 
 ### Chosing my species and variables
 temp <- c(dt1$Species)
@@ -115,8 +115,8 @@ var <- get_pca_var(pca.dt2)
 # (and the more important it is to interpret these components) 
 fviz_pca_var(pca.dt2, col.var = "cos2",
              gradient.cols = c("midnightblue", 
-                              "mediumseagreen", "red"), 
-                                  repel = TRUE) # Avoid text overlapping
+                                "mediumseagreen", "red"), 
+                                repel = TRUE) # Avoid text overlapping
 
 
 # Contributions of variables to PC1
@@ -136,7 +136,7 @@ fviz_contrib(pca.dt2, choice = "var", axes = 1:2, top = 10)
 
 fviz_pca_var(pca.dt2, col.var = "contrib",
              gradient.cols = c("midnightblue", 
-                                             "mediumseagreen","red"))
+                                "mediumseagreen","red"))
                                              
 
 #### Cluster of Species + Treatments
@@ -148,11 +148,11 @@ pl3
 
 
 # Color variables by groups according to PC1-2 total contribution
-#Group according to the PC1-2, 3 not important
-grp <- factor(c("1", "2", "2", "1", 
-                "1", "3", "3", "1", 
-                "2", "1", "1", "2",
-                "3"))
+
+grp <- factor(c("1", "1", "1", "1", 
+                "2", "1", "2", "2", 
+                "3", "2", "3", "3",
+                "1"))
 
 
 fviz_pca_var(pca.dt2, col.var = grp, 
@@ -175,7 +175,9 @@ fviz_pca_biplot(pca.dt2,
                 addEllipses = TRUE,
                 
 )+
-  ggpubr::fill_palette("Pastel1")+      # Indiviual fill color
+  ggpubr::fill_palette("Pastel1")+      # Individual fill color
   ggpubr::color_palette("Dark2")      # Variable colors
 
+#Remove variables
+rm(final_species, grp)
 

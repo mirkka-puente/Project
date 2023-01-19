@@ -1,4 +1,3 @@
-
 #### Install packages --------------
 #remotes::install_github('vqv/ggbiplot')
 #packs <- c("plyr","dplyr", "tidyr", "tidyverse","ggplot2",
@@ -28,8 +27,6 @@ library(ggpubr)
 source("R/00_download-from-drive.R")
 source("R/01_check-data.R")
 rm(i, p, w, ws.legend, ws.observ)
-
-
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
@@ -37,33 +34,44 @@ dt1 <- ws0
 #### Adding columns to calculate water content for Aerial material and Root 
 
 dt1 <- mutate(dt1, 
-                Aerial_water_content = 
-                  (Aerial_fresh_weight - Aerial_dry_weight)/Aerial_fresh_weight)
+              Aerial_water_content = 
+                (Aerial_fresh_weight - Aerial_dry_weight)/Aerial_fresh_weight)
 
 dt1 <- mutate(dt1, 
-                Root_water_content = 
-                  (Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight)
+              Root_water_content = 
+                (Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight)
 
 ### Neat data to work on
 
 num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
-                   "Leaf_width", "Leaf_area","Chlorophyll_content",
-                   "Aerial_fresh_weight", "Aerial_dry_weight",     
-                   "Root_length", "Roots_fresh_weight", 
-                   "Roots_dry_weight", "Aerial_water_content",
-                   "Root_water_content")
-
-num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
-              "Leaf_length","Leaf_width", "Leaf_area",
-              "Chlorophyll_content",
+             "Leaf_width", "Leaf_area","Chlorophyll_content",
              "Aerial_fresh_weight", "Aerial_dry_weight",     
              "Root_length", "Roots_fresh_weight", 
              "Roots_dry_weight", "Aerial_water_content",
              "Root_water_content")
 
+num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
+              "Leaf_length","Leaf_width", "Leaf_area",
+              "Chlorophyll_content",
+              "Aerial_fresh_weight", "Aerial_dry_weight",     
+              "Root_length", "Roots_fresh_weight", 
+              "Roots_dry_weight", "Aerial_water_content",
+              "Root_water_content")
 
-dt2 <- select(dt1, all_of(num.var)) %>% drop_na()
-dt3 <- select(dt1, all_of(num.var2)) %>% drop_na()
+final_species <- c("Beta vulgaris",
+                   "Sonchus oleraceus")
+
+### Chosing my species and variables
+temp <- c(dt1$Species)
+
+dt2 <- dt1 %>% filter(temp %in% final_species, Week == "W6") %>% 
+  select(all_of(num.var)) %>% drop_na()
+
+dt3 <- dt1 %>% filter(temp %in% final_species, Week == "W6") %>% 
+  select(all_of(num.var2)) %>% drop_na()
+
+rm(temp)
+
 
 #### PCA analysis (princomp) -----
 pca.dt2 <- princomp(dt2, cor = TRUE)
@@ -73,7 +81,7 @@ summary(pca.dt2)
 
 
 # correlation between components and data 
-fviz_eig(pca.dt2, addlabels = TRUE, ylim = c(0, 50))
+pl1 <- fviz_eig(pca.dt2, addlabels = TRUE, ylim = c(0, 50))
 round(cor(dt2, pca.dt2$scores), 3)
 
 # COMMENTS
@@ -107,7 +115,7 @@ var <- get_pca_var(pca.dt2)
 fviz_pca_var(pca.dt2, col.var = "cos2",
              gradient.cols = c("midnightblue", 
                                "mediumseagreen", "red"), 
-             repel = TRUE) # Avoid text overlapping
+                                repel = TRUE) # Avoid text overlapping
 
 
 # Contributions of variables to PC1
@@ -126,25 +134,25 @@ fviz_contrib(pca.dt2, choice = "var", axes = 1:2, top = 10)
 #on the correlation plot as follow:
 
 fviz_pca_var(pca.dt2, col.var = "contrib",
-               gradient.cols = c("midnightblue", 
-                                 "mediumseagreen","red"))
-
+             gradient.cols = c("midnightblue", 
+                                "mediumseagreen","red"))
+                                             
 
 #### Cluster of Species + Treatments
 pl3 <- ggbiplot(pca.dt2, ellipse=TRUE, groups=dt3$Species) +
   geom_point(aes(shape = dt3$Treatment, 
-                 colour = dt3$Species), size = 2.5)
+                 colour = dt3$Species), size = 3)
 
 pl3
 
 
 # Color variables by groups according to PC1-2 total contribution
 
-grp <- factor(c("1", "3", "2",
-                "1", "1", "3",
-                "2", "1", "2", 
-                "3", "2", "3",
-                "3"))
+grp <- factor(c("3", "1", "3", "3", 
+                "2", "3", "1", "1", 
+                "3", "1", "1", "2",
+                "2"))
+
 
 
 fviz_pca_var(pca.dt2, col.var = grp, 
@@ -165,10 +173,10 @@ fviz_pca_biplot(pca.dt2,
                 legend.title = list(fill = "Species", color = "Clusters"),
                 repel = TRUE,
                 addEllipses = TRUE,
-            
+                
 )+
-  ggpubr::fill_palette("Pastel1")+      # Indiviual fill color
+  ggpubr::fill_palette("Pastel1")+      # Individual fill color
   ggpubr::color_palette("Dark2")      # Variable colors
 
-
-
+#Remove variables
+rm(final_species, grp)

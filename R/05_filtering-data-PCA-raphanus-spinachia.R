@@ -1,3 +1,33 @@
+#### Install packages --------------
+#remotes::install_github('vqv/ggbiplot')
+#packs <- c("plyr","dplyr", "tidyr", "tidyverse","ggplot2",
+#           "factoextra", "psych", "ggpubr", "car")
+#install.packages(packs, dependencies = TRUE)
+
+#install_github("vqv/ggbiplot")
+#### Libraries ------------
+library(devtools)
+library(ggbiplot)
+library(corrplot)
+library(devtools)
+library(ggbiplot)
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(tidyverse)
+library(ggplot2)
+library(factoextra)
+library(psych)
+library(car)
+library(ggpubr)
+
+#### Calling the other R scripts ---
+#Comment this after getting the data
+
+source("R/00_download-from-drive.R")
+source("R/01_check-data.R")
+rm(i, p, w, ws.legend, ws.observ)
+
 #### Creating duplicate of the original data ------
 
 dt1 <- ws0
@@ -13,10 +43,9 @@ dt1 <- mutate(dt1,
                 (Roots_fresh_weight - Roots_dry_weight)/Roots_fresh_weight)
 
 ### Neat data to work on
-### NO chlorophyll content
 
 num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
-             "Leaf_width", "Leaf_area",
+             "Leaf_width", "Leaf_area","Chlorophyll_content",
              "Aerial_fresh_weight", "Aerial_dry_weight",     
              "Root_length", "Roots_fresh_weight", 
              "Roots_dry_weight", "Aerial_water_content",
@@ -24,13 +53,14 @@ num.var <- c("Plant_height", "Leaf_number", "Leaf_length",
 
 num.var2 <- c("Species","Treatment","Plant_height", "Leaf_number", 
               "Leaf_length","Leaf_width", "Leaf_area",
+              "Chlorophyll_content",
               "Aerial_fresh_weight", "Aerial_dry_weight",     
               "Root_length", "Roots_fresh_weight", 
               "Roots_dry_weight", "Aerial_water_content",
               "Root_water_content")
 
-final_species <- c("Hordeum vulgare",
-                   "Solanum lycopersicum")
+final_species <- c("Raphanus sativus",
+                   "Spinacia oleracea")
 
 ### Chosing my species and variables
 temp <- c(dt1$Species)
@@ -85,8 +115,8 @@ var <- get_pca_var(pca.dt2)
 # (and the more important it is to interpret these components) 
 fviz_pca_var(pca.dt2, col.var = "cos2",
              gradient.cols = c("midnightblue", 
-                                "mediumseagreen", "red"), 
-                               repel = TRUE) # Avoid text overlapping
+                              "mediumseagreen", "red"), 
+                                  repel = TRUE) # Avoid text overlapping
 
 
 # Contributions of variables to PC1
@@ -106,7 +136,7 @@ fviz_contrib(pca.dt2, choice = "var", axes = 1:2, top = 10)
 
 fviz_pca_var(pca.dt2, col.var = "contrib",
              gradient.cols = c("midnightblue", 
-                               "mediumseagreen","red"))
+                                             "mediumseagreen","red"))
                                              
 
 #### Cluster of Species + Treatments
@@ -118,11 +148,11 @@ pl3
 
 
 # Color variables by groups according to PC1-2 total contribution
-
-grp <- factor(c("1", "2", "1", "1", 
-                "1", "1", "1", "2", 
-                "1", "2", "2", "2"))
-
+#Group according to the PC1-2, 3 not important
+grp <- factor(c("1", "2", "2", "1", 
+                "1", "3", "3", "1", 
+                "2", "1", "1", "2",
+                "3"))
 
 
 fviz_pca_var(pca.dt2, col.var = grp, 
@@ -147,4 +177,6 @@ fviz_pca_biplot(pca.dt2,
 )+
   ggpubr::fill_palette("Pastel1")+      # Indiviual fill color
   ggpubr::color_palette("Dark2")      # Variable colors
+
+
 
